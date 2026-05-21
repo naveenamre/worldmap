@@ -1,0 +1,6 @@
+{
+  "name": "World Country Learner Game",
+  "description": "An interactive static learning game to master flags, capitals, currencies, and fun facts about world countries, featuring continent filters, multiple quiz modes, maps, and browser-side fallback study guides.",
+  "requestFramePermissions": [],
+  "majorCapabilities": []
+}
