@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Country } from '../data/countries';
+import { mapAttributions } from '../data/mapAttributions.generated';
+import { mapAssetLinks, type ReferenceMapKind } from '../data/mapAssetLinks';
 import {
   getStaticDestinations,
   getStaticGuideAnswer,
@@ -10,7 +12,7 @@ import {
 } from '../services/staticCountryTools';
 import { 
   X, Info, Coins, Languages, Landmark, 
-  MapPin, Users, Lightbulb, Compass, Send, Sparkles, AlertCircle, Map, Navigation, Layers,
+  MapPin, Users, Lightbulb, Compass, Send, Sparkles, AlertCircle, Map, Layers,
   BookOpen, Award, RotateCcw, HelpCircle, Eye
 } from 'lucide-react';
 
@@ -24,6 +26,8 @@ interface ChatMessage {
   text: string;
 }
 
+const MAP_FILE_EXTENSIONS = ['webp', 'jpg', 'jpeg', 'png', 'svg'];
+
 export const CountryDetailModal: React.FC<CountryDetailModalProps> = ({ country, onClose }) => {
   const [activeTab, setActiveTab] = useState<'overview' | 'facts' | 'india-relation' | 'maps-tourism' | 'ai-guide'>('overview');
   const [chatInput, setChatInput] = useState('');
@@ -32,15 +36,15 @@ export const CountryDetailModal: React.FC<CountryDetailModalProps> = ({ country,
   const [apiError, setApiError] = useState<string | null>(null);
   
   // Map and Tourism States
-  const [mapMode, setMapMode] = useState<'political' | 'physical' | 'satellite'>('political');
-  const [mapZoom, setMapZoom] = useState<number>(5);
-  const [mapQuery, setMapQuery] = useState<string>(country.name);
+  const [referenceMapKind, setReferenceMapKind] = useState<ReferenceMapKind>('political');
+  const [mapImageIndex, setMapImageIndex] = useState<number>(0);
+  const [failedExternalMap, setFailedExternalMap] = useState<boolean>(false);
   const [aiDestinations, setAiDestinations] = useState<TouristDestination[] | null>(null);
   const [loadingDestinations, setLoadingDestinations] = useState(false);
   const [destinationsError, setDestinationsError] = useState<string | null>(null);
 
   // New Isolated Academic Study Map States
-  const [mapSubTab, setMapSubTab] = useState<'academic' | 'global_google'>('academic');
+  const [mapSubTab, setMapSubTab] = useState<'academic' | 'reference'>('academic');
   const [studyMapData, setStudyMapData] = useState<StudyMapData | null>(null);
   const [loadingStudyMap, setLoadingStudyMap] = useState<boolean>(false);
   const [studyMapError, setStudyMapError] = useState<string | null>(null);
@@ -58,6 +62,13 @@ export const CountryDetailModal: React.FC<CountryDetailModalProps> = ({ country,
   const [mapTheme, setMapTheme] = useState<'slate' | 'parchment' | 'mono'>('slate');
   
   const chatEndRef = useRef<HTMLDivElement>(null);
+  const expectedMapFiles = MAP_FILE_EXTENSIONS.map((extension) => `public/maps/${country.code}-${referenceMapKind}.${extension}`);
+  const externalMapSrc = mapAssetLinks[country.code]?.[referenceMapKind];
+  const shouldUseExternalMap = Boolean(externalMapSrc) && !failedExternalMap;
+  const localMapPath = `maps/${country.code}-${referenceMapKind}.${MAP_FILE_EXTENSIONS[mapImageIndex]}`;
+  const referenceMapSrc = shouldUseExternalMap ? externalMapSrc : new URL(localMapPath, document.baseURI).toString();
+  const isReferenceMapMissing = !shouldUseExternalMap && mapImageIndex >= MAP_FILE_EXTENSIONS.length;
+  const referenceMapAttribution = mapAttributions[country.code]?.[referenceMapKind];
 
   // Initialize messages with a warm greeting from the guide
   useEffect(() => {
@@ -69,9 +80,8 @@ export const CountryDetailModal: React.FC<CountryDetailModalProps> = ({ country,
     ]);
     setActiveTab('overview');
     setApiError(null);
-    setMapMode('political');
-    setMapZoom(4);
-    setMapQuery(country.name);
+    setReferenceMapKind('political');
+    setMapImageIndex(0);
     setAiDestinations(null);
     setDestinationsError(null);
     setLoadingDestinations(false);
@@ -89,6 +99,11 @@ export const CountryDetailModal: React.FC<CountryDetailModalProps> = ({ country,
     setHasAnsweredQuiz(false);
     fetchStudyMap();
   }, [country]);
+
+  useEffect(() => {
+    setMapImageIndex(0);
+    setFailedExternalMap(false);
+  }, [country.code, referenceMapKind]);
 
   // Scroll to bottom of chat
   useEffect(() => {
@@ -654,15 +669,15 @@ export const CountryDetailModal: React.FC<CountryDetailModalProps> = ({ country,
                 </button>
                 <button
                   type="button"
-                  onClick={() => setMapSubTab('global_google')}
+                  onClick={() => setMapSubTab('reference')}
                   className={`flex-1 text-center font-extrabold text-[11px] sm:text-xs py-2.5 rounded-xl transition-all cursor-pointer flex items-center justify-center gap-1.5 ${
-                    mapSubTab === 'global_google'
+                    mapSubTab === 'reference'
                       ? 'bg-emerald-600 text-white shadow-sm'
                       : 'text-slate-650 hover:text-slate-900'
                   }`}
                 >
                   <Map className="w-3.5 h-3.5 shrink-0" />
-                  🌐 Global Google Map
+                  Reference Maps
                 </button>
               </div>
 
@@ -1304,90 +1319,116 @@ export const CountryDetailModal: React.FC<CountryDetailModalProps> = ({ country,
                   )}
                 </div>
               )}
-
-              {/* 2. LIVE INTERACTIVE GLOBAL GOOGLE MAP */}
-              {mapSubTab === 'global_google' && (
+              {/* 2. STATIC POLITICAL / PHYSICAL REFERENCE MAPS */}
+              {mapSubTab === 'reference' && (
                 <div className="bg-white border border-slate-100 p-5 rounded-3xl shadow-xs space-y-4 animate-fadeIn">
                   <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
                     <div>
                       <h3 className="text-sm font-extrabold text-slate-900 uppercase tracking-wider flex items-center gap-1.5">
-                        <Layers className="w-4 h-4 text-emerald-600 animate-spin-slow" />
-                        Interactive GIS Mapping Panel
+                        <Layers className="w-4 h-4 text-emerald-600" />
+                        Political and Physical Reference Maps
                       </h3>
-                      <p className="text-xs text-slate-500 mt-0.5">Toggle live styles to analyze political borders versus physical topography</p>
+                      <p className="text-xs text-slate-500 mt-0.5">Drop your own study maps into public/maps using the country ISO code.</p>
                     </div>
-                    
-                    {/* Map mode toggle selector */}
+
                     <div className="flex bg-slate-50 border border-slate-100 p-1 rounded-xl shrink-0 select-none">
                       <button
-                        onClick={() => setMapMode('political')}
+                        onClick={() => setReferenceMapKind('political')}
                         className={`text-xs px-3 py-1.5 rounded-lg font-bold transition-all cursor-pointer ${
-                          mapMode === 'political'
+                          referenceMapKind === 'political'
                             ? 'bg-emerald-600 text-white shadow-sm'
                             : 'text-slate-600 hover:text-slate-900'
                         }`}
                       >
-                        🗣️ Political Roadmap
+                        Political
                       </button>
                       <button
-                        onClick={() => setMapMode('physical')}
+                        onClick={() => setReferenceMapKind('physical')}
                         className={`text-xs px-3 py-1.5 rounded-lg font-bold transition-all cursor-pointer ${
-                          mapMode === 'physical'
+                          referenceMapKind === 'physical'
                             ? 'bg-emerald-600 text-white shadow-sm'
                             : 'text-slate-600 hover:text-slate-900'
                         }`}
                       >
-                        ⛰️ Physical Terrain
-                      </button>
-                      <button
-                        onClick={() => setMapMode('satellite')}
-                        className={`text-xs px-3 py-1.5 rounded-lg font-bold transition-all cursor-pointer ${
-                          mapMode === 'satellite'
-                            ? 'bg-emerald-600 text-white shadow-sm'
-                            : 'text-slate-600 hover:text-slate-900'
-                        }`}
-                      >
-                        🛰️ Satellite
+                        Physical
                       </button>
                     </div>
                   </div>
 
-                  {/* Actual Map viewport Wrapper with Overlay HUD */}
-                  <div className="relative rounded-2xl overflow-hidden border border-slate-150 shadow-inner bg-slate-100">
-                    <iframe
-                      title={`${country.name} Interactive Map`}
-                      src={`https://maps.google.com/maps?q=${encodeURIComponent(mapQuery)}&t=${mapMode === 'political' ? 'm' : mapMode === 'physical' ? 'p' : 'h'}&z=${mapZoom}&ie=UTF8&iwloc=&output=embed`}
-                      className="w-full h-80 md:h-96 border-none"
-                      loading="lazy"
-                      allowFullScreen
-                    />
-
-                    {/* Smart HUD Control bar */}
-                    <div className="absolute bottom-3 left-3 right-3 bg-white/95 backdrop-blur-md rounded-xl p-3 border border-slate-200/80 shadow-lg flex flex-col sm:flex-row justify-between items-center gap-3">
-                      <div className="flex items-center gap-2">
-                        <div className="p-1 px-2.5 bg-emerald-100 text-emerald-800 rounded-md font-mono text-[10px] font-bold">
-                          Style: {mapMode.toUpperCase()}
+                  <div className="relative rounded-2xl overflow-hidden border border-slate-150 shadow-inner bg-slate-100 min-h-[22rem] flex items-center justify-center">
+                    {isReferenceMapMissing ? (
+                      <div className="p-8 text-center max-w-lg mx-auto">
+                        <div className="w-14 h-14 rounded-2xl bg-emerald-50 text-emerald-700 border border-emerald-100 flex items-center justify-center mx-auto mb-4">
+                          <Map className="w-7 h-7" />
                         </div>
-                        <div className="text-slate-500 text-[11px] font-medium">
-                          Focus: <strong className="text-slate-800">{mapQuery}</strong> (Zoom: {mapZoom}x)
+                        <h4 className="font-extrabold text-slate-850 text-base">No {referenceMapKind} map added for {country.name} yet</h4>
+                        <p className="text-xs text-slate-500 leading-relaxed mt-2">
+                          Add a map image with one of these filenames and it will appear here automatically.
+                        </p>
+                        <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-2 text-left">
+                          {expectedMapFiles.map((fileName) => (
+                            <code key={fileName} className="bg-white border border-slate-200 rounded-lg px-2.5 py-2 text-[10px] text-slate-600 font-mono break-all">
+                              {fileName}
+                            </code>
+                          ))}
                         </div>
                       </div>
+                    ) : (
+                      <img
+                        key={`${country.code}-${referenceMapKind}-${mapImageIndex}-${failedExternalMap ? 'local' : 'external'}`}
+                        src={referenceMapSrc}
+                        alt={`${country.name} ${referenceMapKind} map`}
+                        className="w-full h-full max-h-[34rem] object-contain bg-white"
+                        loading="lazy"
+                        onError={() => {
+                          if (shouldUseExternalMap) {
+                            setFailedExternalMap(true);
+                            return;
+                          }
 
-                      <div className="flex gap-2">
-                        <button
-                          onClick={() => { setMapQuery(country.name); setMapZoom(4); }}
-                          className="bg-slate-100 hover:bg-slate-200 text-slate-800 text-[11px] font-bold px-2.5 py-1.5 rounded-lg transition-all cursor-pointer"
+                          setMapImageIndex((currentIndex) => currentIndex + 1);
+                        }}
+                      />
+                    )}
+                  </div>
+
+                  {!isReferenceMapMissing && referenceMapAttribution && (
+                    <div className="text-[11px] text-slate-500 leading-relaxed bg-slate-50 border border-slate-100 rounded-xl px-3 py-2">
+                      <span className="font-bold text-slate-700">Source:</span>{' '}
+                      {referenceMapAttribution.sourceUrl ? (
+                        <a
+                          href={referenceMapAttribution.sourceUrl}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="text-emerald-700 hover:text-emerald-800 underline underline-offset-2"
                         >
-                          🌐 Global Country View
-                        </button>
-                        <button
-                          onClick={() => { setMapQuery(`${country.name} ${country.capital}`); setMapZoom(10); }}
-                          className="bg-emerald-600 hover:bg-emerald-500 text-white text-[11px] font-bold px-2.5 py-1.5 rounded-lg shadow-sm transition-all flex items-center gap-1 cursor-pointer"
-                        >
-                          <Navigation className="w-3 h-3" />
-                          🎯 Focus Capital: {country.capital}
-                        </button>
-                      </div>
+                          {referenceMapAttribution.title}
+                        </a>
+                      ) : (
+                        <span>{referenceMapAttribution.title}</span>
+                      )}{' '}
+                      <span>({referenceMapAttribution.license})</span>
+                      {referenceMapAttribution.author && (
+                        <span> by {referenceMapAttribution.author}</span>
+                      )}
+                      <span>. {referenceMapAttribution.credit}</span>
+                    </div>
+                  )}
+
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                    <div className="bg-slate-50 border border-slate-100 rounded-2xl p-3">
+                      <span className="text-[10px] uppercase font-black text-slate-400 tracking-wider block">Political</span>
+                      <p className="text-xs text-slate-600 mt-1 leading-relaxed">Best for borders, capitals, states, provinces, and neighboring countries.</p>
+                    </div>
+                    <div className="bg-slate-50 border border-slate-100 rounded-2xl p-3">
+                      <span className="text-[10px] uppercase font-black text-slate-400 tracking-wider block">Physical</span>
+                      <p className="text-xs text-slate-600 mt-1 leading-relaxed">Best for mountains, rivers, deserts, plains, plateaus, and coastlines.</p>
+                    </div>
+                    <div className="bg-slate-50 border border-slate-100 rounded-2xl p-3">
+                      <span className="text-[10px] uppercase font-black text-slate-400 tracking-wider block">Naming</span>
+                      <p className="text-xs text-slate-600 mt-1 leading-relaxed">
+                        Current slot: <code className="font-mono text-slate-800">{country.code}-{referenceMapKind}.webp</code>
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -1452,12 +1493,15 @@ export const CountryDetailModal: React.FC<CountryDetailModalProps> = ({ country,
                             <p className="text-xs text-slate-500 line-clamp-3 mt-1.5 leading-relaxed">{dest.description}</p>
                           </div>
                           <div className="mt-4 pt-2.5 border-t border-slate-100/50 flex items-center justify-between text-[10px] text-slate-400 font-bold uppercase select-none">
-                            <span>🗺️ View on map</span>
+                            <span>Study reference</span>
                             <button
-                              onClick={() => { setMapQuery(`${country.name} ${dest.name}`); setMapZoom(11); }}
+                              onClick={() => {
+                                setMapSubTab('reference');
+                                setReferenceMapKind('political');
+                              }}
                               className="text-emerald-600 hover:text-emerald-700 bg-emerald-50 hover:bg-emerald-100 px-2 py-1 rounded cursor-pointer"
                             >
-                              Show Position
+                              Open Maps
                             </button>
                           </div>
                         </div>

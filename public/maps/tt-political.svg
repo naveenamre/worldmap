@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1100" viewBox="0 0 1600 1100" role="img" aria-labelledby="title desc">
+  <title id="title">Trinidad and Tobago Political Study Map</title>
+  <desc id="desc">Made with Natural Earth. Free vector and raster map data @ naturalearthdata.com.</desc>
+  <defs>
+    <linearGradient id="terrain" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#6c8c53" />
+      <stop offset="42%" stop-color="#d5c487" />
+      <stop offset="72%" stop-color="#b88b5f" />
+      <stop offset="100%" stop-color="#f1f5ee" />
+    </linearGradient>
+    <filter id="softShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#0f172a" flood-opacity="0.16" />
+    </filter>
+    <style>
+      .neighbor { fill: #ffffff; stroke: #94a3b8; stroke-width: 1.2; opacity: 0.72; }
+      .country { fill: #f7f1df; stroke: #1f2937; stroke-width: 4; filter: url(#softShadow); }
+      .admin1 { fill: none; stroke: #64748b; stroke-width: 1.1; stroke-dasharray: 6 7; opacity: 0.75; }
+      .river { fill: none; stroke: #1d9bd1; stroke-width: 3; stroke-linecap: round; opacity: 0.88; }
+      .lake { fill: #8ed1ea; stroke: #0ea5e9; stroke-width: 1.5; opacity: 0.8; }
+      .city circle { fill: #ef4444; stroke: #ffffff; stroke-width: 2; }
+      .city text, .terrain-label { fill: #172033; font: 700 24px system-ui, sans-serif; paint-order: stroke; stroke: #ffffff; stroke-width: 5; stroke-linejoin: round; }
+      .map-title { fill: #0f172a; font: 800 46px system-ui, sans-serif; }
+      .map-subtitle { fill: #475569; font: 600 24px system-ui, sans-serif; }
+      .footer { fill: #64748b; font: 500 18px system-ui, sans-serif; }
+    </style>
+  </defs>
+  <rect width="100%" height="100%" fill="#eaf3f8" />
+  <rect x="40" y="40" width="1520" height="1020" rx="32" fill="#ffffff" opacity="0.54" />
+  <path class="neighbor" d="M 944 1681.6 L 971.7 1740.6 L 895.3 1820.4 L 661.4 1898.7 L 511 1931.1 L 450.7 1980.6 L 284.4 1928.3 L 129.6 1901.5 L 90.4 1920.8 L 184 1975 L 175.6 2115.2 L 204.6 2246.9 L 381.7 2264.8 L 393 2308.8 L 243.7 2368.3 L 219.4 2456.8 L 133.3 2491.1 L -22.2 2539.9 L -62.7 2603.9 L -225.2 2617.5 L -340.3 2506.9 L -404.1 2298.4 L -459.7 2225.3 L -535.6 2179.2 L -429.6 2075.1 L -436.8 2028.3 L -496.2 1966.2 L -538.3 1827.2 L -521.9 1677.3 L -475.3 1607.1 L -437.6 1494.4 L -511.5 1458.5 L -630.7 1482.4 L -781.3 1471.2 L -865.8 1493.5 L -1013 1313.6 L -1134.5 1287 L -1403.3 1307.1 L -1453.1 1234.1 L -1504.6 1216.7 L -1512 1173.1 L -1487.1 1095.7 L -1503.6 1011.5 L -1549.8 965.5 L -1576.6 869.4 L -1684.5 855.4 L -1626.5 733.1 L -1600.9 583.9 L -1540.2 506.2 L -1459.2 446.2 L -1406.2 341.7 L -1271.9 306.6 L -1277.8 356 L -1400.6 380.5 L -1332.4 475.3 L -1334.9 584.7 L -1427.2 706.1 L -1348 872 L -1257.9 858.5 L -1210.9 707.3 L -1275.8 633.7 L -1286.3 475.4 L -1025.9 390.4 L -1054.9 291.9 L -981.6 225.9 L -906.6 372.9 L -759.9 376.2 L -624.1 492.8 L -615.9 562.1 L -428.1 563.9 L -204.8 542.4 L -85 636.1 L 74.9 661.9 L 192.2 596.6 L 194.6 543.9 L 453.6 531.3 L 704.1 528.4 L 526.6 590.2 L 598 688.9 L 765.2 704.6 L 923.8 807.4 L 957.1 974.9 L 1066 970.2 L 1148 1019.5 L 982.3 1142.3 L 964 1218.5 L 1035.6 1296.1 L 983.7 1335.3 L 855 1368.9 L 859.2 1465.4 L 802.6 1523 L 944 1681.6 Z" />
+<path class="neighbor" d="M 1821 2371.8 L 1770.1 2379.3 L 1654.5 2361.5 L 1586.5 2417.1 L 1491.9 2453.8 L 1425.8 2462.9 L 1402.7 2503.8 L 1300.1 2493.4 L 1171.4 2395.3 L 1156.3 2298.6 L 1102.8 2192.9 L 1136 2014.9 L 1194 1941.2 L 1146.1 1844 L 1074.2 1812.4 L 1101.4 1720.6 L 1052.8 1672.4 L 944 1681.6 L 802.6 1523 L 859.2 1465.4 L 855 1368.9 L 983.7 1335.3 L 1035.6 1296.1 L 964 1218.5 L 982.3 1142.3 L 1148 1019.5 L 1285.3 1096.4 L 1414.6 1232.6 L 1420.5 1340.3 L 1499.3 1345.2 L 1611.3 1447.2 L 1693.9 1520 L 1660.5 1708.1 L 1533.5 1762.7 L 1544.8 1812 L 1506.3 1919.9 L 1598.9 2071.7 L 1665.9 2072 L 1693.3 2190 L 1821 2371.8 Z" />
+
+<path class="country" d="M 746.2 519.1 L 866.4 492 L 910.3 499.3 L 901.9 655 L 727.3 678 L 689.7 659.2 L 750.3 601.7 L 746.2 519.1 Z" />
+
+
+<g class="city"><circle cx="549.616354545454" cy="1018.8600818181818" r="5" /><text x="561.616354545454" y="1022.8600818181818">Ciudad Guayana</text></g>
+<g class="city"><circle cx="780.2344272727265" cy="541.7188090909092" r="5" /><text x="792.2344272727265" y="545.7188090909092">Port-of-Spain</text></g>
+<g class="city"><circle cx="733.2700999999992" cy="248.85855454545447" r="5" /><text x="745.2700999999992" y="252.85855454545447">Saint George's</text></g>
+<text class="map-title" x="80" y="105">Trinidad and Tobago Political Study Map</text>
+<text class="map-subtitle" x="80" y="145">Capital: Port of Spain | Continent: North America</text>
+  <text class="footer" x="80" y="1036">Made with Natural Earth. Free vector and raster map data @ naturalearthdata.com.</text>
+</svg>

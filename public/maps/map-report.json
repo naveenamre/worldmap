@@ -1,0 +1,3206 @@
+{
+  "generatedAt": "2026-05-21T10:34:23.668Z",
+  "summary": {
+    "countryCount": 196,
+    "generatedCount": 392,
+    "downloadedCount": 2,
+    "commonsSkipped": false,
+    "commonsUnavailable": true,
+    "durationMs": 37660
+  },
+  "countries": [
+    {
+      "code": "in",
+      "name": "India",
+      "political": {
+        "generated": true,
+        "downloaded": true,
+        "fileName": "in-political.svg",
+        "sourceType": "commons"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": true,
+        "fileName": "in-physical.svg",
+        "sourceType": "commons"
+      }
+    },
+    {
+      "code": "np",
+      "name": "Nepal",
+      "political": {
+        "generated": true,
+        "downloaded": true,
+        "fileName": "np-political.jpg",
+        "sourceType": "commons"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": true,
+        "fileName": "np-physical.svg",
+        "sourceType": "commons"
+      }
+    },
+    {
+      "code": "pk",
+      "name": "Pakistan",
+      "political": {
+        "generated": true,
+        "downloaded": true,
+        "fileName": "pk-political.png",
+        "sourceType": "commons"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": true,
+        "fileName": "pk-physical.svg",
+        "sourceType": "commons"
+      }
+    },
+    {
+      "code": "bd",
+      "name": "Bangladesh",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "bd-political.svg",
+        "sourceType": "generated",
+        "warning": "Commons disabled after request failure: HTTP 429 searching Commons"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "bd-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "lk",
+      "name": "Sri Lanka",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "lk-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "lk-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "bt",
+      "name": "Bhutan",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "bt-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "bt-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "mv",
+      "name": "Maldives",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "mv-political.svg",
+        "sourceType": "local-fallback",
+        "warning": "No Natural Earth feature match; used symbolic fallback outline."
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "mv-physical.svg",
+        "sourceType": "local-fallback",
+        "warning": "No Natural Earth feature match; used symbolic fallback outline."
+      }
+    },
+    {
+      "code": "jp",
+      "name": "Japan",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "jp-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "jp-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "cn",
+      "name": "China",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "cn-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "cn-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "kr",
+      "name": "South Korea",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "kr-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "kr-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "id",
+      "name": "Indonesia",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "id-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "id-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "sg",
+      "name": "Singapore",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "sg-political.svg",
+        "sourceType": "local-fallback",
+        "warning": "No Natural Earth feature match; used symbolic fallback outline."
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "sg-physical.svg",
+        "sourceType": "local-fallback",
+        "warning": "No Natural Earth feature match; used symbolic fallback outline."
+      }
+    },
+    {
+      "code": "th",
+      "name": "Thailand",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "th-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "th-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "sa",
+      "name": "Saudi Arabia",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "sa-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "sa-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "tr",
+      "name": "Turkey",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "tr-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "tr-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "ae",
+      "name": "United Arab Emirates",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "ae-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "ae-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "af",
+      "name": "Afghanistan",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "af-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "af-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "bh",
+      "name": "Bahrain",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "bh-political.svg",
+        "sourceType": "local-fallback",
+        "warning": "No Natural Earth feature match; used symbolic fallback outline."
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "bh-physical.svg",
+        "sourceType": "local-fallback",
+        "warning": "No Natural Earth feature match; used symbolic fallback outline."
+      }
+    },
+    {
+      "code": "bn",
+      "name": "Brunei",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "bn-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "bn-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "kh",
+      "name": "Cambodia",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "kh-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "kh-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "cy",
+      "name": "Cyprus",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "cy-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "cy-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "tl",
+      "name": "East Timor",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "tl-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "tl-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "ge",
+      "name": "Georgia",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "ge-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "ge-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "ir",
+      "name": "Iran",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "ir-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "ir-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "iq",
+      "name": "Iraq",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "iq-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "iq-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "il",
+      "name": "Israel",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "il-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "il-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "jo",
+      "name": "Jordan",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "jo-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "jo-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "kz",
+      "name": "Kazakhstan",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "kz-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "kz-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "kw",
+      "name": "Kuwait",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "kw-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "kw-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "kg",
+      "name": "Kyrgyzstan",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "kg-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "kg-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "la",
+      "name": "Laos",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "la-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "la-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "lb",
+      "name": "Lebanon",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "lb-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "lb-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "my",
+      "name": "Malaysia",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "my-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "my-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "mn",
+      "name": "Mongolia",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "mn-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "mn-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "mm",
+      "name": "Myanmar",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "mm-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "mm-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "kp",
+      "name": "North Korea",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "kp-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "kp-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "om",
+      "name": "Oman",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "om-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "om-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "ph",
+      "name": "Philippines",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "ph-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "ph-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "qa",
+      "name": "Qatar",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "qa-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "qa-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "sy",
+      "name": "Syria",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "sy-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "sy-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "tj",
+      "name": "Tajikistan",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "tj-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "tj-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "tm",
+      "name": "Turkmenistan",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "tm-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "tm-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "uz",
+      "name": "Uzbekistan",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "uz-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "uz-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "vn",
+      "name": "Vietnam",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "vn-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "vn-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "ye",
+      "name": "Yemen",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "ye-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "ye-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "ps",
+      "name": "Palestine",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "ps-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "ps-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "tw",
+      "name": "Taiwan",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "tw-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "tw-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "au",
+      "name": "Australia",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "au-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "au-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "nz",
+      "name": "New Zealand",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "nz-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "nz-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "fj",
+      "name": "Fiji",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "fj-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "fj-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "ki",
+      "name": "Kiribati",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "ki-political.svg",
+        "sourceType": "local-fallback",
+        "warning": "No Natural Earth feature match; used symbolic fallback outline."
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "ki-physical.svg",
+        "sourceType": "local-fallback",
+        "warning": "No Natural Earth feature match; used symbolic fallback outline."
+      }
+    },
+    {
+      "code": "mh",
+      "name": "Marshall Islands",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "mh-political.svg",
+        "sourceType": "local-fallback",
+        "warning": "No Natural Earth feature match; used symbolic fallback outline."
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "mh-physical.svg",
+        "sourceType": "local-fallback",
+        "warning": "No Natural Earth feature match; used symbolic fallback outline."
+      }
+    },
+    {
+      "code": "fm",
+      "name": "Micronesia",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "fm-political.svg",
+        "sourceType": "local-fallback",
+        "warning": "No Natural Earth feature match; used symbolic fallback outline."
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "fm-physical.svg",
+        "sourceType": "local-fallback",
+        "warning": "No Natural Earth feature match; used symbolic fallback outline."
+      }
+    },
+    {
+      "code": "nr",
+      "name": "Nauru",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "nr-political.svg",
+        "sourceType": "local-fallback",
+        "warning": "No Natural Earth feature match; used symbolic fallback outline."
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "nr-physical.svg",
+        "sourceType": "local-fallback",
+        "warning": "No Natural Earth feature match; used symbolic fallback outline."
+      }
+    },
+    {
+      "code": "pw",
+      "name": "Palau",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "pw-political.svg",
+        "sourceType": "local-fallback",
+        "warning": "No Natural Earth feature match; used symbolic fallback outline."
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "pw-physical.svg",
+        "sourceType": "local-fallback",
+        "warning": "No Natural Earth feature match; used symbolic fallback outline."
+      }
+    },
+    {
+      "code": "pg",
+      "name": "Papua New Guinea",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "pg-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "pg-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "ws",
+      "name": "Samoa",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "ws-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "ws-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "sb",
+      "name": "Solomon Islands",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "sb-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "sb-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "to",
+      "name": "Tonga",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "to-political.svg",
+        "sourceType": "local-fallback",
+        "warning": "No Natural Earth feature match; used symbolic fallback outline."
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "to-physical.svg",
+        "sourceType": "local-fallback",
+        "warning": "No Natural Earth feature match; used symbolic fallback outline."
+      }
+    },
+    {
+      "code": "tv",
+      "name": "Tuvalu",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "tv-political.svg",
+        "sourceType": "local-fallback",
+        "warning": "No Natural Earth feature match; used symbolic fallback outline."
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "tv-physical.svg",
+        "sourceType": "local-fallback",
+        "warning": "No Natural Earth feature match; used symbolic fallback outline."
+      }
+    },
+    {
+      "code": "vu",
+      "name": "Vanuatu",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "vu-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "vu-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "gb",
+      "name": "United Kingdom",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "gb-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "gb-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "fr",
+      "name": "France",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "fr-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "fr-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "de",
+      "name": "Germany",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "de-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "de-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "it",
+      "name": "Italy",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "it-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "it-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "es",
+      "name": "Spain",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "es-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "es-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "ch",
+      "name": "Switzerland",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "ch-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "ch-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "nl",
+      "name": "Netherlands",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "nl-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "nl-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "gr",
+      "name": "Greece",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "gr-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "gr-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "se",
+      "name": "Sweden",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "se-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "se-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "ie",
+      "name": "Ireland",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "ie-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "ie-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "ru",
+      "name": "Russia",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "ru-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "ru-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "al",
+      "name": "Albania",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "al-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "al-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "ad",
+      "name": "Andorra",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "ad-political.svg",
+        "sourceType": "local-fallback",
+        "warning": "No Natural Earth feature match; used symbolic fallback outline."
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "ad-physical.svg",
+        "sourceType": "local-fallback",
+        "warning": "No Natural Earth feature match; used symbolic fallback outline."
+      }
+    },
+    {
+      "code": "at",
+      "name": "Austria",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "at-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "at-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "by",
+      "name": "Belarus",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "by-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "by-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "be",
+      "name": "Belgium",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "be-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "be-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "ba",
+      "name": "Bosnia and Herzegovina",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "ba-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "ba-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "bg",
+      "name": "Bulgaria",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "bg-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "bg-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "hr",
+      "name": "Croatia",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "hr-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "hr-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "cz",
+      "name": "Czech Republic",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "cz-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "cz-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "dk",
+      "name": "Denmark",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "dk-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "dk-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "ee",
+      "name": "Estonia",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "ee-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "ee-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "fi",
+      "name": "Finland",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "fi-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "fi-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "hu",
+      "name": "Hungary",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "hu-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "hu-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "is",
+      "name": "Iceland",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "is-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "is-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "lv",
+      "name": "Latvia",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "lv-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "lv-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "li",
+      "name": "Liechtenstein",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "li-political.svg",
+        "sourceType": "local-fallback",
+        "warning": "No Natural Earth feature match; used symbolic fallback outline."
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "li-physical.svg",
+        "sourceType": "local-fallback",
+        "warning": "No Natural Earth feature match; used symbolic fallback outline."
+      }
+    },
+    {
+      "code": "lt",
+      "name": "Lithuania",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "lt-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "lt-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "lu",
+      "name": "Luxembourg",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "lu-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "lu-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "mt",
+      "name": "Malta",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "mt-political.svg",
+        "sourceType": "local-fallback",
+        "warning": "No Natural Earth feature match; used symbolic fallback outline."
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "mt-physical.svg",
+        "sourceType": "local-fallback",
+        "warning": "No Natural Earth feature match; used symbolic fallback outline."
+      }
+    },
+    {
+      "code": "md",
+      "name": "Moldova",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "md-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "md-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "mc",
+      "name": "Monaco",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "mc-political.svg",
+        "sourceType": "local-fallback",
+        "warning": "No Natural Earth feature match; used symbolic fallback outline."
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "mc-physical.svg",
+        "sourceType": "local-fallback",
+        "warning": "No Natural Earth feature match; used symbolic fallback outline."
+      }
+    },
+    {
+      "code": "me",
+      "name": "Montenegro",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "me-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "me-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "no",
+      "name": "Norway",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "no-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "no-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "pl",
+      "name": "Poland",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "pl-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "pl-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "pt",
+      "name": "Portugal",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "pt-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "pt-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "ro",
+      "name": "Romania",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "ro-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "ro-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "sm",
+      "name": "San Marino",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "sm-political.svg",
+        "sourceType": "local-fallback",
+        "warning": "No Natural Earth feature match; used symbolic fallback outline."
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "sm-physical.svg",
+        "sourceType": "local-fallback",
+        "warning": "No Natural Earth feature match; used symbolic fallback outline."
+      }
+    },
+    {
+      "code": "rs",
+      "name": "Serbia",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "rs-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "rs-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "sk",
+      "name": "Slovakia",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "sk-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "sk-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "si",
+      "name": "Slovenia",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "si-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "si-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "ua",
+      "name": "Ukraine",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "ua-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "ua-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "va",
+      "name": "Vatican City",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "va-political.svg",
+        "sourceType": "local-fallback",
+        "warning": "No Natural Earth feature match; used symbolic fallback outline."
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "va-physical.svg",
+        "sourceType": "local-fallback",
+        "warning": "No Natural Earth feature match; used symbolic fallback outline."
+      }
+    },
+    {
+      "code": "mk",
+      "name": "North Macedonia",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "mk-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "mk-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "am",
+      "name": "Armenia",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "am-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "am-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "az",
+      "name": "Azerbaijan",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "az-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "az-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "us",
+      "name": "United States",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "us-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "us-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "ca",
+      "name": "Canada",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "ca-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "ca-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "mx",
+      "name": "Mexico",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "mx-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "mx-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "cr",
+      "name": "Costa Rica",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "cr-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "cr-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "pa",
+      "name": "Panama",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "pa-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "pa-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "jm",
+      "name": "Jamaica",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "jm-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "jm-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "cu",
+      "name": "Cuba",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "cu-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "cu-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "do",
+      "name": "Dominican Republic",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "do-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "do-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "bs",
+      "name": "Bahamas",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "bs-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "bs-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "bb",
+      "name": "Barbados",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "bb-political.svg",
+        "sourceType": "local-fallback",
+        "warning": "No Natural Earth feature match; used symbolic fallback outline."
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "bb-physical.svg",
+        "sourceType": "local-fallback",
+        "warning": "No Natural Earth feature match; used symbolic fallback outline."
+      }
+    },
+    {
+      "code": "ag",
+      "name": "Antigua and Barbuda",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "ag-political.svg",
+        "sourceType": "local-fallback",
+        "warning": "No Natural Earth feature match; used symbolic fallback outline."
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "ag-physical.svg",
+        "sourceType": "local-fallback",
+        "warning": "No Natural Earth feature match; used symbolic fallback outline."
+      }
+    },
+    {
+      "code": "bz",
+      "name": "Belize",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "bz-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "bz-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "dm",
+      "name": "Dominica",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "dm-political.svg",
+        "sourceType": "local-fallback",
+        "warning": "No Natural Earth feature match; used symbolic fallback outline."
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "dm-physical.svg",
+        "sourceType": "local-fallback",
+        "warning": "No Natural Earth feature match; used symbolic fallback outline."
+      }
+    },
+    {
+      "code": "sv",
+      "name": "El Salvador",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "sv-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "sv-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "gd",
+      "name": "Grenada",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "gd-political.svg",
+        "sourceType": "local-fallback",
+        "warning": "No Natural Earth feature match; used symbolic fallback outline."
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "gd-physical.svg",
+        "sourceType": "local-fallback",
+        "warning": "No Natural Earth feature match; used symbolic fallback outline."
+      }
+    },
+    {
+      "code": "gt",
+      "name": "Guatemala",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "gt-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "gt-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "ht",
+      "name": "Haiti",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "ht-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "ht-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "hn",
+      "name": "Honduras",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "hn-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "hn-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "ni",
+      "name": "Nicaragua",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "ni-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "ni-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "kn",
+      "name": "Saint Kitts and Nevis",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "kn-political.svg",
+        "sourceType": "local-fallback",
+        "warning": "No Natural Earth feature match; used symbolic fallback outline."
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "kn-physical.svg",
+        "sourceType": "local-fallback",
+        "warning": "No Natural Earth feature match; used symbolic fallback outline."
+      }
+    },
+    {
+      "code": "lc",
+      "name": "Saint Lucia",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "lc-political.svg",
+        "sourceType": "local-fallback",
+        "warning": "No Natural Earth feature match; used symbolic fallback outline."
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "lc-physical.svg",
+        "sourceType": "local-fallback",
+        "warning": "No Natural Earth feature match; used symbolic fallback outline."
+      }
+    },
+    {
+      "code": "vc",
+      "name": "Saint Vincent and the Grenadines",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "vc-political.svg",
+        "sourceType": "local-fallback",
+        "warning": "No Natural Earth feature match; used symbolic fallback outline."
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "vc-physical.svg",
+        "sourceType": "local-fallback",
+        "warning": "No Natural Earth feature match; used symbolic fallback outline."
+      }
+    },
+    {
+      "code": "tt",
+      "name": "Trinidad and Tobago",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "tt-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "tt-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "br",
+      "name": "Brazil",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "br-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "br-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "ar",
+      "name": "Argentina",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "ar-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "ar-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "co",
+      "name": "Colombia",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "co-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "co-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "pe",
+      "name": "Peru",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "pe-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "pe-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "cl",
+      "name": "Chile",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "cl-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "cl-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "ve",
+      "name": "Venezuela",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "ve-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "ve-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "ec",
+      "name": "Ecuador",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "ec-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "ec-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "bo",
+      "name": "Bolivia",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "bo-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "bo-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "py",
+      "name": "Paraguay",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "py-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "py-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "uy",
+      "name": "Uruguay",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "uy-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "uy-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "gy",
+      "name": "Guyana",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "gy-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "gy-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "sr",
+      "name": "Suriname",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "sr-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "sr-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "eg",
+      "name": "Egypt",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "eg-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "eg-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "za",
+      "name": "South Africa",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "za-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "za-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "ng",
+      "name": "Nigeria",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "ng-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "ng-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "ke",
+      "name": "Kenya",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "ke-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "ke-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "ma",
+      "name": "Morocco",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "ma-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "ma-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "mg",
+      "name": "Madagascar",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "mg-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "mg-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "dz",
+      "name": "Algeria",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "dz-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "dz-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "ao",
+      "name": "Angola",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "ao-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "ao-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "bj",
+      "name": "Benin",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "bj-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "bj-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "bw",
+      "name": "Botswana",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "bw-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "bw-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "bf",
+      "name": "Burkina Faso",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "bf-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "bf-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "bi",
+      "name": "Burundi",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "bi-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "bi-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "cm",
+      "name": "Cameroon",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "cm-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "cm-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "cv",
+      "name": "Cape Verde",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "cv-political.svg",
+        "sourceType": "local-fallback",
+        "warning": "No Natural Earth feature match; used symbolic fallback outline."
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "cv-physical.svg",
+        "sourceType": "local-fallback",
+        "warning": "No Natural Earth feature match; used symbolic fallback outline."
+      }
+    },
+    {
+      "code": "cf",
+      "name": "Central African Republic",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "cf-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "cf-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "td",
+      "name": "Chad",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "td-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "td-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "km",
+      "name": "Comoros",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "km-political.svg",
+        "sourceType": "local-fallback",
+        "warning": "No Natural Earth feature match; used symbolic fallback outline."
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "km-physical.svg",
+        "sourceType": "local-fallback",
+        "warning": "No Natural Earth feature match; used symbolic fallback outline."
+      }
+    },
+    {
+      "code": "cd",
+      "name": "Congo (DRC)",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "cd-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "cd-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "cg",
+      "name": "Congo (Republic)",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "cg-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "cg-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "dj",
+      "name": "Djibouti",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "dj-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "dj-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "gq",
+      "name": "Equatorial Guinea",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "gq-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "gq-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "er",
+      "name": "Eritrea",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "er-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "er-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "sz",
+      "name": "Eswatini",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "sz-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "sz-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "et",
+      "name": "Ethiopia",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "et-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "et-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "ga",
+      "name": "Gabon",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "ga-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "ga-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "gm",
+      "name": "Gambia",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "gm-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "gm-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "gh",
+      "name": "Ghana",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "gh-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "gh-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "gn",
+      "name": "Guinea",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "gn-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "gn-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "gw",
+      "name": "Guinea-Bissau",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "gw-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "gw-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "ci",
+      "name": "Ivory Coast",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "ci-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "ci-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "ls",
+      "name": "Lesotho",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "ls-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "ls-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "lr",
+      "name": "Liberia",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "lr-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "lr-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "ly",
+      "name": "Libya",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "ly-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "ly-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "mw",
+      "name": "Malawi",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "mw-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "mw-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "ml",
+      "name": "Mali",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "ml-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "ml-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "mr",
+      "name": "Mauritania",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "mr-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "mr-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "mu",
+      "name": "Mauritius",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "mu-political.svg",
+        "sourceType": "local-fallback",
+        "warning": "No Natural Earth feature match; used symbolic fallback outline."
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "mu-physical.svg",
+        "sourceType": "local-fallback",
+        "warning": "No Natural Earth feature match; used symbolic fallback outline."
+      }
+    },
+    {
+      "code": "mz",
+      "name": "Mozambique",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "mz-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "mz-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "na",
+      "name": "Namibia",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "na-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "na-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "ne",
+      "name": "Niger",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "ne-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "ne-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "rw",
+      "name": "Rwanda",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "rw-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "rw-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "st",
+      "name": "Sao Tome and Principe",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "st-political.svg",
+        "sourceType": "local-fallback",
+        "warning": "No Natural Earth feature match; used symbolic fallback outline."
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "st-physical.svg",
+        "sourceType": "local-fallback",
+        "warning": "No Natural Earth feature match; used symbolic fallback outline."
+      }
+    },
+    {
+      "code": "sn",
+      "name": "Senegal",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "sn-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "sn-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "sc",
+      "name": "Seychelles",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "sc-political.svg",
+        "sourceType": "local-fallback",
+        "warning": "No Natural Earth feature match; used symbolic fallback outline."
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "sc-physical.svg",
+        "sourceType": "local-fallback",
+        "warning": "No Natural Earth feature match; used symbolic fallback outline."
+      }
+    },
+    {
+      "code": "sl",
+      "name": "Sierra Leone",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "sl-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "sl-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "so",
+      "name": "Somalia",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "so-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "so-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "ss",
+      "name": "South Sudan",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "ss-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "ss-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "sd",
+      "name": "Sudan",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "sd-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "sd-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "tz",
+      "name": "Tanzania",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "tz-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "tz-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "tg",
+      "name": "Togo",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "tg-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "tg-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "tn",
+      "name": "Tunisia",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "tn-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "tn-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "ug",
+      "name": "Uganda",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "ug-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "ug-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "zm",
+      "name": "Zambia",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "zm-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "zm-physical.svg",
+        "sourceType": "generated"
+      }
+    },
+    {
+      "code": "zw",
+      "name": "Zimbabwe",
+      "political": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "zw-political.svg",
+        "sourceType": "generated"
+      },
+      "physical": {
+        "generated": true,
+        "downloaded": false,
+        "fileName": "zw-physical.svg",
+        "sourceType": "generated"
+      }
+    }
+  ]
+}

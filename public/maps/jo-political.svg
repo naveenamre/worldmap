@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1100" viewBox="0 0 1600 1100" role="img" aria-labelledby="title desc">
+  <title id="title">Jordan Political Study Map</title>
+  <desc id="desc">Made with Natural Earth. Free vector and raster map data @ naturalearthdata.com.</desc>
+  <defs>
+    <linearGradient id="terrain" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#6c8c53" />
+      <stop offset="42%" stop-color="#d5c487" />
+      <stop offset="72%" stop-color="#b88b5f" />
+      <stop offset="100%" stop-color="#f1f5ee" />
+    </linearGradient>
+    <filter id="softShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#0f172a" flood-opacity="0.16" />
+    </filter>
+    <style>
+      .neighbor { fill: #ffffff; stroke: #94a3b8; stroke-width: 1.2; opacity: 0.72; }
+      .country { fill: #f7f1df; stroke: #1f2937; stroke-width: 4; filter: url(#softShadow); }
+      .admin1 { fill: none; stroke: #64748b; stroke-width: 1.1; stroke-dasharray: 6 7; opacity: 0.75; }
+      .river { fill: none; stroke: #1d9bd1; stroke-width: 3; stroke-linecap: round; opacity: 0.88; }
+      .lake { fill: #8ed1ea; stroke: #0ea5e9; stroke-width: 1.5; opacity: 0.8; }
+      .city circle { fill: #ef4444; stroke: #ffffff; stroke-width: 2; }
+      .city text, .terrain-label { fill: #172033; font: 700 24px system-ui, sans-serif; paint-order: stroke; stroke: #ffffff; stroke-width: 5; stroke-linejoin: round; }
+      .map-title { fill: #0f172a; font: 800 46px system-ui, sans-serif; }
+      .map-subtitle { fill: #475569; font: 600 24px system-ui, sans-serif; }
+      .footer { fill: #64748b; font: 500 18px system-ui, sans-serif; }
+    </style>
+  </defs>
+  <rect width="100%" height="100%" fill="#eaf3f8" />
+  <rect x="40" y="40" width="1520" height="1020" rx="32" fill="#ffffff" opacity="0.54" />
+  <path class="neighbor" d="M 652.7 428.7 L 633.5 463.3 L 593.7 448.1 L 570.7 521.4 L 598.3 533.7 L 570.2 548.8 L 565.5 577.8 L 617.2 562.9 L 619.8 605.7 L 565 781.6 L 554 753 L 492.7 592.6 L 492.7 592.6 L 492.7 592.6 L 524.7 556.3 L 517.2 550.1 L 546.3 498.7 L 568.6 415.7 L 584.3 387.8 L 587.3 386.7 L 624.2 386.9 L 634.3 367.6 L 663.8 366.1 L 665.5 411.2 L 650.6 427.9 L 652.7 428.7 Z" />
+<path class="neighbor" d="M 663.8 366.1 L 634.3 367.6 L 624.2 386.9 L 587.3 386.7 L 626.5 297 L 681.2 219.5 L 683.3 215.7 L 732.8 221.3 L 750.8 264.4 L 690.8 305.9 L 663.8 366.1 Z" />
+<path class="neighbor" d="M 617.2 562.9 L 565.5 577.8 L 570.2 548.8 L 598.3 533.7 L 570.7 521.4 L 593.7 448.1 L 633.5 463.3 L 633.5 530.6 L 617.2 562.9 Z" />
+<path class="neighbor" d="M 1035 489 L 990.7 355 L 1234.2 240.5 L 1275.8 107.5 L 1265.4 27.1 L 1325.7 0 L 1382 -68.7 L 1429.3 -85.8 L 1557.3 -71.6 L 1595.9 -43.6 L 1648.6 -62.2 L 1719.9 69.1 L 1792.1 102.1 L 1800.4 166.4 L 1745 204.3 L 1719.5 290.2 L 1795.7 394.8 L 1930.5 455.1 L 1987.1 538.7 L 1969.1 618.4 L 2004.2 618.3 L 2005.3 676.9 L 2066.2 734.8 L 2000.9 729.4 L 1927 720.2 L 1846.2 825.8 L 1641.7 817 L 1331.5 595.8 L 1167.6 518.8 L 1035 489 Z" />
+<path class="neighbor" d="M 652.7 428.7 L 650.6 427.9 L 665.5 411.2 L 663.8 366.1 L 690.8 305.9 L 750.8 264.4 L 732.8 221.3 L 683.3 215.7 L 673 131.5 L 700 86.2 L 729.4 62.1 L 758.9 38 L 764.8 -23.3 L 800.8 -1.9 L 922 -32.5 L 980.5 -11.8 L 1071 -12.2 L 1197.6 -53.4 L 1256.9 -51.6 L 1382 -68.7 L 1325.7 0 L 1265.4 27.1 L 1275.8 107.5 L 1234.2 240.5 L 990.7 355 L 775.2 472.2 L 652.7 428.7 Z" />
+<path class="neighbor" d="M 568.6 797.5 L 691.1 815 L 738.6 781.1 L 765 741.5 L 848.9 726.3 L 867 689.5 L 903.4 670.8 L 793.7 560.8 L 1014.1 505.6 L 1035 489 L 1167.6 518.8 L 1331.5 595.8 L 1641.7 817 L 1846.2 825.8 L 1944.3 836.5 L 1971.7 888.9 L 2049.5 886 L 2092.5 980.9 L 2146.7 1006 L 2165.5 1044.7 L 2240.5 1090.9 L 2247.1 1136.3 L 2236.2 1172.9 L 2250.1 1209.9 L 2281.7 1240.7 L 2296.4 1276.8 L 2312.8 1303.8 L 2346.1 1325.6 L 2376.6 1317.8 L 2397.5 1359.8 L 2401.7 1385.2 L 2443.8 1496.7 L 2774.6 1552.2 L 2796.7 1528.9 L 2847.1 1606.8 L 2773.8 1826.9 L 2443.8 1936.9 L 2126.5 1979.1 L 2023.9 2028.6 L 1945 2144.1 L 1893.7 2162.4 L 1866.2 2125.8 L 1824 2131.3 L 1717.6 2120.3 L 1697.5 2109.3 L 1570.5 2111.8 L 1540.7 2121.7 L 1495.5 2093.1 L 1466.3 2147.2 L 1477.6 2193.6 L 1429.3 2228.7 L 1415.1 2181.7 L 1381.9 2148.6 L 1373.4 2104.7 L 1316.6 2065.3 L 1257.9 1973 L 1226.9 1883.4 L 1150.8 1807.7 L 1101.7 1789.6 L 1028.9 1684.7 L 1016.1 1608.3 L 1020.8 1543.1 L 957.7 1421.1 L 906.1 1378.2 L 846.7 1355.4 L 810.5 1292.4 L 816.6 1267.5 L 786 1210.5 L 753.9 1185.9 L 710.9 1104.1 L 643.9 1015.3 L 587.8 939.8 L 533 940.3 L 550.1 879.9 L 555 841.4 L 568.6 797.5 Z" />
+<path class="neighbor" d="M 323.9 161.2 L 331.7 160.6 L 347.6 134.1 L 426.8 135.6 L 526.9 102.7 L 452.5 149.6 L 460.6 170.2 L 448.8 166.3 L 427.7 174.7 L 411.3 172.4 L 405.8 176.6 L 403.6 165.5 L 395.7 158.7 L 374.4 157.6 L 344.6 167 L 323.9 161.2 Z" />
+<path class="neighbor" d="M 323.9 161.2 L 344.6 167 L 374.4 157.6 L 395.7 158.7 L 403.6 165.5 L 405.8 176.6 L 411.3 172.4 L 427.7 174.7 L 448.8 166.3 L 460.6 170.2 L 464 179 L 351.2 223.7 L 297.4 209.5 L 271.7 165.3 L 323.9 161.2 Z" />
+<path class="neighbor" d="M 778.8 1606.8 L 342.4 1606.8 L -84.4 1606.8 L -526.7 1606.8 L -526.7 1201.7 L -526.7 810.5 L -559.7 721.8 L -531.4 653.9 L -548.4 606.9 L -508.6 554.1 L -362.2 552.3 L -256.3 581.4 L -147.1 613.9 L -96.1 631 L -11.4 596.1 L 33.8 564.6 L 130.9 555.5 L 209.1 569.4 L 239.1 624 L 264.6 588.1 L 352.8 614 L 438.5 620.3 L 492.7 592.6 L 492.7 592.6 L 554 753 L 565 781.6 L 534.1 825.8 L 510.4 908.9 L 480.5 966.2 L 454.8 985.4 L 418.1 949.9 L 368.5 900.8 L 290 743.1 L 278.7 753.1 L 324.3 869.2 L 391.8 979.8 L 475 1151.1 L 515.6 1210.9 L 550.9 1273.1 L 649.6 1394.9 L 627.8 1414.1 L 631.3 1485.6 L 759.5 1584.3 L 778.8 1606.8 Z" />
+
+<path class="country" d="M 633.5 463.3 L 652.7 428.7 L 775.2 472.2 L 990.7 355 L 1035 489 L 1014.1 505.6 L 793.7 560.8 L 903.4 670.8 L 867 689.5 L 848.9 726.3 L 765 741.5 L 738.6 781.1 L 691.1 815 L 568.6 797.5 L 565 781.6 L 619.8 605.7 L 617.2 562.9 L 633.5 530.6 L 633.5 463.3 Z" />
+
+
+<g class="city"><circle cx="547.9555538122985" cy="497.6637864665832" r="5" /><text x="559.9555538122985" y="501.6637864665832">Tel Aviv</text></g>
+<g class="city"><circle cx="716.2790386758226" cy="341.43562563872337" r="5" /><text x="728.2790386758226" y="345.43562563872337">Damascus</text></g>
+<g class="city"><circle cx="629.334318857952" cy="300.51597858122227" r="5" /><text x="641.334318857952" y="304.51597858122227">Beirut</text></g>
+<g class="city"><circle cx="675.9364281612582" cy="511.96219091641615" r="5" /><text x="687.9364281612582" y="515.9621909164161">Amman</text></g>
+<g class="city"><circle cx="596.2043900888525" cy="531.0569847203826" r="5" /><text x="608.2043900888525" y="535.0569847203826">Jerusalem</text></g>
+<g class="city"><circle cx="744.5441478277359" cy="904.5160254578184" r="5" /><text x="756.5441478277359" y="908.5160254578184">Tabuk</text></g>
+<g class="city"><circle cx="512.4150535098732" cy="558.3860734895873" r="5" /><text x="524.4150535098732" y="562.3860734895873">Gaza City</text></g>
+<g class="city"><circle cx="393.77502008399046" cy="158.29148799947205" r="5" /><text x="405.77502008399046" y="162.29148799947205">Nicosia</text></g>
+<text class="map-title" x="80" y="105">Jordan Political Study Map</text>
+<text class="map-subtitle" x="80" y="145">Capital: Amman | Continent: Asia</text>
+  <text class="footer" x="80" y="1036">Made with Natural Earth. Free vector and raster map data @ naturalearthdata.com.</text>
+</svg>

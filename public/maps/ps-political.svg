@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1100" viewBox="0 0 1600 1100" role="img" aria-labelledby="title desc">
+  <title id="title">Palestine Political Study Map</title>
+  <desc id="desc">Made with Natural Earth. Free vector and raster map data @ naturalearthdata.com.</desc>
+  <defs>
+    <linearGradient id="terrain" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#6c8c53" />
+      <stop offset="42%" stop-color="#d5c487" />
+      <stop offset="72%" stop-color="#b88b5f" />
+      <stop offset="100%" stop-color="#f1f5ee" />
+    </linearGradient>
+    <filter id="softShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#0f172a" flood-opacity="0.16" />
+    </filter>
+    <style>
+      .neighbor { fill: #ffffff; stroke: #94a3b8; stroke-width: 1.2; opacity: 0.72; }
+      .country { fill: #f7f1df; stroke: #1f2937; stroke-width: 4; filter: url(#softShadow); }
+      .admin1 { fill: none; stroke: #64748b; stroke-width: 1.1; stroke-dasharray: 6 7; opacity: 0.75; }
+      .river { fill: none; stroke: #1d9bd1; stroke-width: 3; stroke-linecap: round; opacity: 0.88; }
+      .lake { fill: #8ed1ea; stroke: #0ea5e9; stroke-width: 1.5; opacity: 0.8; }
+      .city circle { fill: #ef4444; stroke: #ffffff; stroke-width: 2; }
+      .city text, .terrain-label { fill: #172033; font: 700 24px system-ui, sans-serif; paint-order: stroke; stroke: #ffffff; stroke-width: 5; stroke-linejoin: round; }
+      .map-title { fill: #0f172a; font: 800 46px system-ui, sans-serif; }
+      .map-subtitle { fill: #475569; font: 600 24px system-ui, sans-serif; }
+      .footer { fill: #64748b; font: 500 18px system-ui, sans-serif; }
+    </style>
+  </defs>
+  <rect width="100%" height="100%" fill="#eaf3f8" />
+  <rect x="40" y="40" width="1520" height="1020" rx="32" fill="#ffffff" opacity="0.54" />
+  <path class="neighbor" d="M 901.1 424.8 L 864.6 490.7 L 789 461.7 L 745.2 601 L 797.8 624.4 L 744.4 653.2 L 735.4 708.3 L 833.7 679.9 L 838.6 761.2 L 734.4 1095.5 L 713.6 1041.2 L 597 736.3 L 597 736.3 L 597 736.3 L 657.8 667.4 L 643.5 655.6 L 698.8 557.8 L 741.2 400.1 L 771.1 347.1 L 776.9 345 L 846.9 345.4 L 866.1 308.7 L 922.2 306 L 925.4 391.6 L 897.1 423.4 L 901.1 424.8 Z" />
+<path class="neighbor" d="M 922.2 306 L 866.1 308.7 L 846.9 345.4 L 776.9 345 L 851.4 174.7 L 955.4 27.3 L 959.3 20 L 1053.3 30.7 L 1087.5 112.7 L 973.5 191.5 L 922.2 306 Z" />
+<path class="neighbor" d="M 864.6 490.7 L 901.1 424.8 L 1134 507.6 L 1543.5 284.8 L 1627.8 539.4 L 1587.9 570.9 L 1169.2 675.9 L 1377.6 884.9 L 1308.4 920.4 L 1274 990.5 L 1114.5 1019.4 L 1064.4 1094.7 L 974 1159.1 L 741.4 1125.8 L 734.4 1095.5 L 838.6 761.2 L 833.7 679.9 L 864.5 618.6 L 864.6 490.7 Z" />
+<path class="neighbor" d="M 901.1 424.8 L 897.1 423.4 L 925.4 391.6 L 922.2 306 L 973.5 191.5 L 1087.5 112.7 L 1053.3 30.7 L 959.3 20 L 939.8 -139.9 L 990.9 -226 L 1046.9 -271.8 L 1102.9 -317.6 L 1114.3 -434.2 L 1182.7 -393.6 L 1412.9 -451.7 L 1524.2 -412.4 L 1696.2 -413 L 1936.8 -491.5 L 2049.4 -487.9 L 2287.3 -520.4 L 2180.1 -390 L 2065.7 -338.3 L 2085.4 -185.6 L 2006.4 67.2 L 1543.5 284.8 L 1134 507.6 L 901.1 424.8 Z" />
+<path class="neighbor" d="M 741.4 1125.8 L 974 1159.1 L 1064.4 1094.7 L 1114.5 1019.4 L 1274 990.5 L 1308.4 920.4 L 1377.6 884.9 L 1169.2 675.9 L 1587.9 570.9 L 1627.8 539.4 L 1879.6 596.1 L 2191.2 742.4 L 2780.7 1162.9 L 3169.5 1179.6 L 3355.8 1199.8 L 3407.8 1299.4 L 3555.7 1294 L 3637.6 1474.3 L 3740.4 1522.1 L 3776.3 1595.5 L 3918.8 1683.4 L 3931.4 1769.7 L 3910.6 1839.3 L 3937.1 1909.6 L 3997.2 1968.2 L 4025 2036.7 L 4056.3 2088 L 4119.5 2129.5 L 4177.5 2114.6 L 4217.2 2194.5 L 4225.2 2242.8 L 4305.2 2454.7 L 4933.8 2560.1 L 4975.9 2515.9 L 5071.8 2664 L 4932.4 3082.2 L 4305.1 3291.3 L 3702.2 3371.4 L 3507.1 3465.5 L 3357.2 3685 L 3259.6 3719.9 L 3207.4 3650.2 L 3127.2 3660.7 L 2925.1 3639.7 L 2886.8 3618.8 L 2645.5 3623.6 L 2588.8 3642.5 L 2502.9 3588.2 L 2447.5 3690.9 L 2468.9 3779.1 L 2377.1 3845.8 L 2350 3756.6 L 2286.9 3693.6 L 2270.8 3610.2 L 2162.8 3535.3 L 2051.4 3359.9 L 1992.4 3189.5 L 1847.8 3045.7 L 1754.5 3011.3 L 1616.1 2812 L 1591.9 2666.7 L 1600.8 2542.8 L 1480.8 2310.9 L 1382.8 2229.4 L 1269.8 2186.1 L 1201.1 2066.3 L 1212.5 2019 L 1154.4 1910.6 L 1093.4 1864 L 1011.7 1708.4 L 884.4 1539.8 L 777.8 1396.2 L 673.7 1397.2 L 706.2 1282.4 L 715.5 1209.2 L 741.4 1125.8 Z" />
+<path class="neighbor" d="M 1140.8 2664 L 311.5 2664 L -499.8 2664 L -1340.4 2664 L -1340.4 1894 L -1340.4 1150.4 L -1403.1 982 L -1349.2 852.9 L -1381.6 763.5 L -1305.9 663.2 L -1027.7 659.7 L -826.5 715 L -618.9 776.8 L -522.1 809.3 L -361.1 743.1 L -275 683.2 L -90.6 665.9 L 58 692.3 L 115 796.1 L 163.5 727.7 L 331.1 777.1 L 494.1 789 L 597 736.3 L 597 736.3 L 713.6 1041.2 L 734.4 1095.5 L 675.6 1179.6 L 630.6 1337.5 L 573.8 1446.4 L 525 1482.9 L 455.3 1415.4 L 361 1322.1 L 211.8 1022.4 L 190.3 1041.3 L 276.9 1262 L 405.3 1472.2 L 563.3 1797.9 L 640.5 1911.6 L 707.7 2029.7 L 895.3 2261.1 L 853.8 2297.6 L 860.5 2433.5 L 1104.1 2621.2 L 1140.8 2664 Z" />
+
+<path class="country" d="M 833.7 679.9 L 735.4 708.3 L 744.4 653.2 L 797.8 624.4 L 745.2 601 L 789 461.7 L 864.6 490.7 L 864.5 618.6 L 833.7 679.9 Z" />
+
+
+<g class="city"><circle cx="702.0470772727269" cy="555.9438909090907" r="5" /><text x="714.0470772727269" y="559.9438909090907">Tel Aviv</text></g>
+<g class="city"><circle cx="1021.9528227272732" cy="259.02580909090926" r="5" /><text x="1033.952822727273" y="263.02580909090926">Damascus</text></g>
+<g class="city"><circle cx="856.7107863636362" cy="181.25632727272762" r="5" /><text x="868.7107863636362" y="185.25632727272762">Beirut</text></g>
+<g class="city"><circle cx="945.2800227272724" cy="583.1186000000004" r="5" /><text x="957.2800227272724" y="587.1186000000004">Amman</text></g>
+<g class="city"><circle cx="793.7459863636363" cy="619.409045454546" r="5" /><text x="805.7459863636363" y="623.409045454546">Jerusalem</text></g>
+<g class="city"><circle cx="634.500886363637" cy="671.3491090909093" r="5" /><text x="646.500886363637" y="675.3491090909093">Gaza City</text></g>
+<g class="city"><circle cx="793.6587954545457" cy="593.3694909090915" r="5" /><text x="805.6587954545457" y="597.3694909090915">Ramallah</text></g>
+<text class="map-title" x="80" y="105">Palestine Political Study Map</text>
+<text class="map-subtitle" x="80" y="145">Capital: East Jerusalem | Continent: Asia</text>
+  <text class="footer" x="80" y="1036">Made with Natural Earth. Free vector and raster map data @ naturalearthdata.com.</text>
+</svg>

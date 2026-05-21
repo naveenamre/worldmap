@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1100" viewBox="0 0 1600 1100" role="img" aria-labelledby="title desc">
+  <title id="title">Djibouti Physical Study Map</title>
+  <desc id="desc">Made with Natural Earth. Free vector and raster map data @ naturalearthdata.com.</desc>
+  <defs>
+    <linearGradient id="terrain" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#6c8c53" />
+      <stop offset="42%" stop-color="#d5c487" />
+      <stop offset="72%" stop-color="#b88b5f" />
+      <stop offset="100%" stop-color="#f1f5ee" />
+    </linearGradient>
+    <filter id="softShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#0f172a" flood-opacity="0.16" />
+    </filter>
+    <style>
+      .neighbor { fill: #ffffff; stroke: #94a3b8; stroke-width: 1.2; opacity: 0.72; }
+      .country { fill: url(#terrain); stroke: #1f2937; stroke-width: 4; filter: url(#softShadow); }
+      .admin1 { fill: none; stroke: #64748b; stroke-width: 1.1; stroke-dasharray: 6 7; opacity: 0.75; }
+      .river { fill: none; stroke: #1d9bd1; stroke-width: 3; stroke-linecap: round; opacity: 0.88; }
+      .lake { fill: #8ed1ea; stroke: #0ea5e9; stroke-width: 1.5; opacity: 0.8; }
+      .city circle { fill: #ef4444; stroke: #ffffff; stroke-width: 2; }
+      .city text, .terrain-label { fill: #172033; font: 700 24px system-ui, sans-serif; paint-order: stroke; stroke: #ffffff; stroke-width: 5; stroke-linejoin: round; }
+      .map-title { fill: #0f172a; font: 800 46px system-ui, sans-serif; }
+      .map-subtitle { fill: #475569; font: 600 24px system-ui, sans-serif; }
+      .footer { fill: #64748b; font: 500 18px system-ui, sans-serif; }
+    </style>
+  </defs>
+  <rect width="100%" height="100%" fill="#d8edf0" />
+  <rect x="40" y="40" width="1520" height="1020" rx="32" fill="#ffffff" opacity="0.54" />
+  <path class="neighbor" d="M 610.8 3407 L 487 3234.5 L 484.5 2472.8 L 667.3 2235.6 L 724.5 2169.7 L 858.5 2165.9 L 1044.9 2018.5 L 1317.2 2009.3 L 1908.1 1381.7 L 2053.9 1207.2 L 2148.3 1078.8 L 2148.3 969.7 L 2148.4 758.7 L 2149.1 672.6 L 2150.4 669.2 L 2150.4 669.2 L 2217.2 665.1 L 2313.6 634 L 2424.4 613 L 2523.4 541.4 L 2602.7 540.8 L 2607.4 598.6 L 2588.1 720.2 L 2588.9 830.1 L 2544.7 905.6 L 2485.8 1131.7 L 2385.1 1365.2 L 2255.9 1632.3 L 2076.4 1938.7 L 1897.9 2172.8 L 1652 2458 L 1442.8 2627.3 L 1130 2834.9 L 935.1 2993.9 L 706.3 3247.2 L 658.1 3357.5 L 610.8 3407 Z" />
+<path class="neighbor" d="M -467.2 39.5 L -489.4 -44.2 L -399.3 -351.4 L -378.7 -490.4 L -312.9 -554.5 L -158.9 -588.9 L -53 -708.2 L 68.4 -466.2 L 126 -274.3 L 240.6 -172.4 L 526 25.1 L 642.2 144.3 L 755.5 264.9 L 820.9 336.8 L 923.7 399.7 L 860.6 450.7 L 771.1 432.6 L 699.6 364.9 L 613.6 242.3 L 520.9 175.2 L 466.9 103 L 284.9 19.1 L 141.5 16.6 L 91.1 -27.1 L -31.5 22.1 L -158.4 -72.8 L -223.7 83.2 L -467.2 39.5 Z" />
+<path class="neighbor" d="M 2788.5 -917.7 L 2952 -572.6 L 3020.3 -426.5 L 2869 -370.4 L 2828.6 -277.5 L 2823.7 -206.2 L 2615.5 -118 L 2281.4 -20.4 L 2094.2 127.1 L 2002.1 138.6 L 1939.4 126.3 L 1817.2 213 L 1683.9 253.3 L 1508.4 264.1 L 1455.6 276 L 1409.8 331.2 L 1355 346.5 L 1322.7 399.7 L 1219.2 395.1 L 1152.4 423.4 L 1007.7 412.8 L 953.3 290.7 L 959.3 176.4 L 925.1 114.7 L 884.1 -40 L 824.1 -125.9 L 865.9 -136.1 L 844.5 -231.6 L 869.8 -272 L 860.5 -363.2 L 952.3 -429.9 L 930.9 -518 L 986.3 -620.8 L 1072.2 -566.4 L 1128.9 -585.3 L 1370.2 -590.1 L 1408.5 -569.2 L 1610.6 -548.3 L 1690.8 -558.7 L 1743 -489 L 1840.6 -523.9 L 1990.5 -743.4 L 2185.6 -837.5 L 2788.5 -917.7 Z" />
+<path class="neighbor" d="M 1908.1 1381.7 L 1317.2 2009.3 L 1044.9 2018.5 L 858.5 2165.9 L 724.5 2169.7 L 667.3 2235.6 L 524.4 2235.6 L 440.1 2164.9 L 249.1 2252.4 L 187.3 2339.5 L 47.8 2323.1 L 1.6 2299 L -47.4 2304.7 L -113.5 2302.6 L -378.2 2125 L -523.7 2125 L -595.1 2056.2 L -595.1 1938.9 L -703.7 1903.8 L -827.3 1676.3 L -922.8 1627.8 L -959.4 1544.2 L -1065.4 1442.3 L -1193.8 1427.3 L -1122.6 1308.2 L -1011.6 1303 L -980.4 1239.2 L -983.2 1051.2 L -921.3 832.4 L -822.3 773.8 L -801.3 688.4 L -711.6 528.6 L -585.5 425 L -500.5 219.1 L -467.2 39.5 L -223.7 83.2 L -158.4 -72.8 L -31.5 22.1 L 91.1 -27.1 L 141.5 16.6 L 284.9 19.1 L 466.9 103 L 520.9 175.2 L 613.6 242.3 L 699.6 364.9 L 771.1 432.6 L 697.6 525 L 626.9 623.1 L 643.1 680.8 L 646.5 744.4 L 763.3 747.9 L 813.6 733.1 L 860 770.3 L 814.4 844.4 L 891.6 959.5 L 968.8 1060.2 L 1048.6 1134.8 L 1732.2 1383 L 1908.1 1381.7 Z" />
+<path class="neighbor" d="M 2150.4 669.2 L 2150.4 669.2 L 2149.1 672.6 L 2148.4 758.7 L 2148.3 969.7 L 2148.3 1078.8 L 2053.9 1207.2 L 1908.1 1381.7 L 1732.2 1383 L 1048.6 1134.8 L 968.8 1060.2 L 891.6 959.5 L 814.4 844.4 L 860 770.3 L 937.1 658.4 L 1005.1 697 L 1046.1 783.4 L 1140.4 871 L 1244.2 871.7 L 1441.3 818.2 L 1668.9 793.4 L 1853 728.4 L 1956.6 714.7 L 2031.3 676.5 L 2150.4 669.2 L 2150.4 669.2 Z" />
+<path class="lake" d="M 791 613.4 L 789.8 621.2 L 784.8 623.5 L 781 620.2 L 780.4 614.6 L 780.9 610.1 L 783.6 606.2 L 788.8 609.3 L 791 613.4 L 791 613.4 L 791 613.4 Z" />
+<path class="country" d="M 771.1 432.6 L 860.6 450.7 L 923.7 399.7 L 973.1 464.4 L 966.6 551.2 L 847.3 601.2 L 937.1 658.4 L 860 770.3 L 813.6 733.1 L 763.3 747.9 L 646.5 744.4 L 643.1 680.8 L 626.9 623.1 L 697.6 525 L 771.1 432.6 Z" />
+
+
+<g class="city"><circle cx="937.6227999999994" cy="630.633045454545" r="5" /><text x="949.6227999999994" y="634.633045454545">Djibouti</text></g>
+<g class="city"><circle cx="1123.6033090909095" cy="210.07093636363587" r="5" /><text x="1135.6033090909095" y="214.07093636363587">Taizz</text></g>
+<g class="city"><circle cx="850.2204999999993" cy="334.76857272727227" r="5" /><text x="862.2204999999993" y="338.76857272727227">Assab</text></g>
+<text class="map-title" x="80" y="105">Djibouti Physical Study Map</text>
+<text class="map-subtitle" x="80" y="145">Landmark: Lake Assal | Study terrain and water systems</text>
+  <text class="footer" x="80" y="1036">Made with Natural Earth. Free vector and raster map data @ naturalearthdata.com.</text>
+</svg>

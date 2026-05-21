@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1100" viewBox="0 0 1600 1100" role="img" aria-labelledby="title desc">
+  <title id="title">New Zealand Political Study Map</title>
+  <desc id="desc">Made with Natural Earth. Free vector and raster map data @ naturalearthdata.com.</desc>
+  <defs>
+    <linearGradient id="terrain" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#6c8c53" />
+      <stop offset="42%" stop-color="#d5c487" />
+      <stop offset="72%" stop-color="#b88b5f" />
+      <stop offset="100%" stop-color="#f1f5ee" />
+    </linearGradient>
+    <filter id="softShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#0f172a" flood-opacity="0.16" />
+    </filter>
+    <style>
+      .neighbor { fill: #ffffff; stroke: #94a3b8; stroke-width: 1.2; opacity: 0.72; }
+      .country { fill: #f7f1df; stroke: #1f2937; stroke-width: 4; filter: url(#softShadow); }
+      .admin1 { fill: none; stroke: #64748b; stroke-width: 1.1; stroke-dasharray: 6 7; opacity: 0.75; }
+      .river { fill: none; stroke: #1d9bd1; stroke-width: 3; stroke-linecap: round; opacity: 0.88; }
+      .lake { fill: #8ed1ea; stroke: #0ea5e9; stroke-width: 1.5; opacity: 0.8; }
+      .city circle { fill: #ef4444; stroke: #ffffff; stroke-width: 2; }
+      .city text, .terrain-label { fill: #172033; font: 700 24px system-ui, sans-serif; paint-order: stroke; stroke: #ffffff; stroke-width: 5; stroke-linejoin: round; }
+      .map-title { fill: #0f172a; font: 800 46px system-ui, sans-serif; }
+      .map-subtitle { fill: #475569; font: 600 24px system-ui, sans-serif; }
+      .footer { fill: #64748b; font: 500 18px system-ui, sans-serif; }
+    </style>
+  </defs>
+  <rect width="100%" height="100%" fill="#eaf3f8" />
+  <rect x="40" y="40" width="1520" height="1020" rx="32" fill="#ffffff" opacity="0.54" />
+  
+
+<path class="country" d="M 965 566.9 L 950.7 587.2 L 932 613.1 L 902.9 628.1 L 896.4 618.2 L 880.7 612.8 L 902.4 581.7 L 890.1 561 L 849.5 545.9 L 850.5 532.2 L 877.8 519 L 884.2 490 L 882.4 465.6 L 867.1 440.3 L 868.1 433.6 L 850.1 418.1 L 820.4 384.7 L 804.6 358 L 818.6 355 L 839.2 376 L 868.5 385.7 L 879.2 419.4 L 906.5 459.1 L 907.3 433.3 L 924.4 443.6 L 930 472.2 L 960.4 484.5 L 985.9 487.5 L 1007.4 473.1 L 1026.6 477.4 L 1017.4 510.9 L 1005.9 532.9 L 977.1 532.2 L 967 543.6 L 970.6 559.9 L 965 566.9 Z M 692.6 698.6 L 725 678.8 L 747.6 659.2 L 764.4 631.1 L 778.7 621.5 L 784.3 600.5 L 810.8 583 L 819.1 599.1 L 827.7 614.7 L 854.5 599.4 L 865.4 615.3 L 865.5 631.2 L 851.4 648.7 L 826.8 676.5 L 807.5 691.6 L 821.4 709.8 L 792.3 710.3 L 760 724.5 L 749.9 749.2 L 728.4 787.4 L 698.8 804.2 L 680 815 L 645.2 814.2 L 620.8 801.8 L 579.8 799.1 L 573.4 785.2 L 593.7 757.3 L 641.2 720 L 665.5 712.9 L 692.6 698.6 Z" />
+
+
+<g class="city"><circle cx="884.8981979764201" cy="445.4634080777007" r="5" /><text x="896.8981979764201" y="449.4634080777007">Auckland</text></g>
+<g class="city"><circle cx="885.4330407602663" cy="613.1541294244331" r="5" /><text x="897.4330407602663" y="617.1541294244331">Wellington</text></g>
+<g class="city"><circle cx="889.4996420594839" cy="451.1957801327303" r="5" /><text x="901.4996420594839" y="455.1957801327303">Manukau</text></g>
+<g class="city"><circle cx="804.411264343358" cy="697.7899246409498" r="5" /><text x="816.411264343358" y="701.7899246409498">Christchurch</text></g>
+<g class="city"><circle cx="904.767113079919" cy="480.5641732345149" r="5" /><text x="916.767113079919" y="484.5641732345149">Hamilton</text></g>
+<g class="city"><circle cx="723.6978130560398" cy="786.4801330503497" r="5" /><text x="735.6978130560398" y="790.4801330503497">Dunedin</text></g>
+<g class="city"><circle cx="966.5330021812756" cy="545.1547974816277" r="5" /><text x="978.5330021812756" y="549.1547974816277">Napier</text></g>
+<g class="city"><circle cx="854.4064614518127" cy="621.5103026740417" r="5" /><text x="866.4064614518127" y="625.5103026740417">Blenheim</text></g>
+<text class="map-title" x="80" y="105">New Zealand Political Study Map</text>
+<text class="map-subtitle" x="80" y="145">Capital: Wellington | Continent: Oceania</text>
+  <text class="footer" x="80" y="1036">Made with Natural Earth. Free vector and raster map data @ naturalearthdata.com.</text>
+</svg>

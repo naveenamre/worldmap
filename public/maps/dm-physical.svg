@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1100" viewBox="0 0 1600 1100" role="img" aria-labelledby="title desc">
+  <title id="title">Dominica Physical Study Map</title>
+  <desc id="desc">Generated from local app country data. Run npm run maps:build with network access for Natural Earth/Commons upgrades.</desc>
+  <defs>
+    <linearGradient id="terrain" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#6c8c53" />
+      <stop offset="42%" stop-color="#d5c487" />
+      <stop offset="72%" stop-color="#b88b5f" />
+      <stop offset="100%" stop-color="#f1f5ee" />
+    </linearGradient>
+    <filter id="softShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#0f172a" flood-opacity="0.16" />
+    </filter>
+    <style>
+      .neighbor { fill: #ffffff; stroke: #94a3b8; stroke-width: 1.2; opacity: 0.72; }
+      .country { fill: url(#terrain); stroke: #1f2937; stroke-width: 4; filter: url(#softShadow); }
+      .admin1 { fill: none; stroke: #64748b; stroke-width: 1.1; stroke-dasharray: 6 7; opacity: 0.75; }
+      .river { fill: none; stroke: #1d9bd1; stroke-width: 3; stroke-linecap: round; opacity: 0.88; }
+      .lake { fill: #8ed1ea; stroke: #0ea5e9; stroke-width: 1.5; opacity: 0.8; }
+      .city circle { fill: #ef4444; stroke: #ffffff; stroke-width: 2; }
+      .city text, .terrain-label { fill: #172033; font: 700 24px system-ui, sans-serif; paint-order: stroke; stroke: #ffffff; stroke-width: 5; stroke-linejoin: round; }
+      .map-title { fill: #0f172a; font: 800 46px system-ui, sans-serif; }
+      .map-subtitle { fill: #475569; font: 600 24px system-ui, sans-serif; }
+      .footer { fill: #64748b; font: 500 18px system-ui, sans-serif; }
+    </style>
+  </defs>
+  <rect width="100%" height="100%" fill="#d8edf0" />
+  <rect x="40" y="40" width="1520" height="1020" rx="32" fill="#ffffff" opacity="0.54" />
+  <path class="country" d="M 1220.3 565 L 1184.3 645.4 L 1145.6 724.9 L 1072.1 792.1 L 972.5 838.1 L 862.6 886.3 L 732.2 922.8 L 603.8 890 L 526.9 793.3 L 485.6 704.9 L 424.2 643 L 360.3 565 L 359.1 467.9 L 422.1 384.3 L 509 316 L 615.2 265.1 L 740.2 262.7 L 854.6 299.2 L 961.1 316.9 L 1090 317.2 L 1209.1 364.3 L 1249.3 465.5 Z" />
+<path class="river" d="M 460 380 C 610 500, 670 285, 820 415 S 1040 590, 1160 490" /><text class="terrain-label" x="660" y="355">Highlands</text><text class="terrain-label" x="880" y="720">Lowlands</text>
+<text class="map-title" x="80" y="105">Dominica Physical Study Map</text>
+<text class="map-subtitle" x="80" y="145">Landmark: Boiling Lake | Study terrain and water systems</text>
+  <text class="footer" x="80" y="1036">Generated from local app country data. Run npm run maps:build with network access for Natural Earth/Commons upgrades.</text>
+</svg>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1100" viewBox="0 0 1600 1100" role="img" aria-labelledby="title desc">
+  <title id="title">United Kingdom Political Study Map</title>
+  <desc id="desc">Made with Natural Earth. Free vector and raster map data @ naturalearthdata.com.</desc>
+  <defs>
+    <linearGradient id="terrain" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#6c8c53" />
+      <stop offset="42%" stop-color="#d5c487" />
+      <stop offset="72%" stop-color="#b88b5f" />
+      <stop offset="100%" stop-color="#f1f5ee" />
+    </linearGradient>
+    <filter id="softShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#0f172a" flood-opacity="0.16" />
+    </filter>
+    <style>
+      .neighbor { fill: #ffffff; stroke: #94a3b8; stroke-width: 1.2; opacity: 0.72; }
+      .country { fill: #f7f1df; stroke: #1f2937; stroke-width: 4; filter: url(#softShadow); }
+      .admin1 { fill: none; stroke: #64748b; stroke-width: 1.1; stroke-dasharray: 6 7; opacity: 0.75; }
+      .river { fill: none; stroke: #1d9bd1; stroke-width: 3; stroke-linecap: round; opacity: 0.88; }
+      .lake { fill: #8ed1ea; stroke: #0ea5e9; stroke-width: 1.5; opacity: 0.8; }
+      .city circle { fill: #ef4444; stroke: #ffffff; stroke-width: 2; }
+      .city text, .terrain-label { fill: #172033; font: 700 24px system-ui, sans-serif; paint-order: stroke; stroke: #ffffff; stroke-width: 5; stroke-linejoin: round; }
+      .map-title { fill: #0f172a; font: 800 46px system-ui, sans-serif; }
+      .map-subtitle { fill: #475569; font: 600 24px system-ui, sans-serif; }
+      .footer { fill: #64748b; font: 500 18px system-ui, sans-serif; }
+    </style>
+  </defs>
+  <rect width="100%" height="100%" fill="#eaf3f8" />
+  <rect x="40" y="40" width="1520" height="1020" rx="32" fill="#ffffff" opacity="0.54" />
+  <path class="neighbor" d="M -1084.9 777.7 L -1005.9 873.1 L -903 1027.5 L -635.4 1150.9 L -347.3 1202.4 L -439.9 1305.3 L -635.4 1315.6 L -740.4 1242.9 L -864.4 1237.4 L -1084.8 1237.3 L -1084.9 777.7 Z M 1180.7 -3836.3 L 1129.3 -3671.6 L 1074.2 -3460 L 1076.3 -3255.1 L 1031.6 -3209.2 L 1015.7 -3076.2 L 1001.6 -2968.8 L 1262.9 -2792.5 L 1234.8 -2650.7 L 1363.4 -2561 L 1352.9 -2460.5 L 1155.2 -2196.6 L 850 -2086.2 L 437.3 -2043.4 L 211.2 -2064.1 L 254.5 -1941.3 L 212.3 -1787.3 L 250.3 -1683.5 L 126.9 -1611.1 L -84 -1582.7 L -281.9 -1657.6 L -361.3 -1603.8 L -332.6 -1399.3 L -193.7 -1337.3 L -81 -1402.2 L -19.7 -1295.3 L -209.2 -1231.5 L -374.4 -1103.5 L -404.7 -896.5 L -453.4 -786.3 L -647.8 -785.7 L -809.1 -680.3 L -868.1 -525.9 L -665.7 -375.3 L -469 -333.7 L -539.8 -149 L -782.8 -32.9 L -916.6 208.3 L -1104.4 289.5 L -1188.7 385.9 L -1122.3 599.6 L -985.3 718.8 L -1072 708.4 L -1262.8 676.1 L -1760.1 648.6 L -1845.4 528.6 L -1841.4 374.5 L -1978.4 387.7 L -2050.9 313.1 L -2068.9 94.9 L -1911 4.4 L -1845.8 -126.2 L -1869.7 -230.3 L -1760.6 -405.9 L -1685.4 -678.4 L -1707.5 -799.3 L -1617.7 -838.2 L -1639.7 -915.8 L -1735.1 -957 L -1667.3 -1043.3 L -1760.2 -1121.4 L -1808.3 -1358.8 L -1725.5 -1400.7 L -1760.3 -1651.5 L -1711.9 -1862.3 L -1656.9 -2045.9 L -1533.7 -2120.6 L -1596.2 -2321.5 L -1596.9 -2510.6 L -1441.1 -2645 L -1445.9 -2816.9 L -1328.4 -3017.8 L -1327.9 -3207 L -1381.3 -3244.6 L -1476.1 -3599.9 L -1349.3 -3811.6 L -1368.8 -4010.9 L -1295.2 -4197.9 L -1160.5 -4390.9 L -1015.2 -4518.9 L -1076.8 -4599.7 L -1033.9 -4665.9 L -1040.4 -5008.9 L -816.2 -5110.4 L -745.6 -5324.2 L -770.6 -5375.7 L -599.1 -5561.7 L -329.8 -5511.6 L -208.8 -5362.9 L -128.5 -5528.5 L 106.2 -5520 L 139.4 -5475.9 L 517.7 -5140.1 L 686 -5108.8 L 937.4 -4956.8 L 1149.4 -4876.4 L 1178.9 -4785.6 L 976.3 -4472.7 L 1183.9 -4416.7 L 1415 -4385.3 L 1577.7 -4418.4 L 1764.4 -4576 L 1798.1 -4757.6 L 1900 -4797.1 L 2003.2 -4678.3 L 1999 -4513.9 L 1825.7 -4400.5 L 1687.5 -4316.7 L 1455.3 -4116.9 L 1180.7 -3836.3 Z" />
+
+<path class="country" d="M 445 615.9 L 692 492.4 L 866.9 543.8 L 990.4 461.5 L 1155 554.1 L 1093.3 626.2 L 815.4 687.9 L 722.8 615.9 L 547.9 708.5 L 445 615.9 Z" />
+
+
+<g class="city"><circle cx="1134.4268753623196" cy="585.0022637681161" r="5" /><text x="1146.4268753623196" y="589.0022637681161">Stanley</text></g>
+<text class="map-title" x="80" y="105">United Kingdom Political Study Map</text>
+<text class="map-subtitle" x="80" y="145">Capital: London | Continent: Europe</text>
+  <text class="footer" x="80" y="1036">Made with Natural Earth. Free vector and raster map data @ naturalearthdata.com.</text>
+</svg>

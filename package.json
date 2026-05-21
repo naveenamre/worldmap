@@ -12,6 +12,7 @@
     "start:server": "node dist/server.cjs",
     "preview": "vite preview --host 0.0.0.0",
     "clean": "node -e \"require('node:fs').rmSync('dist',{recursive:true,force:true})\"",
+    "maps:build": "tsx scripts/build-country-maps.ts",
     "lint": "tsc --noEmit"
   },
   "dependencies": {

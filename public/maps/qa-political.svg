@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1100" viewBox="0 0 1600 1100" role="img" aria-labelledby="title desc">
+  <title id="title">Qatar Political Study Map</title>
+  <desc id="desc">Made with Natural Earth. Free vector and raster map data @ naturalearthdata.com.</desc>
+  <defs>
+    <linearGradient id="terrain" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#6c8c53" />
+      <stop offset="42%" stop-color="#d5c487" />
+      <stop offset="72%" stop-color="#b88b5f" />
+      <stop offset="100%" stop-color="#f1f5ee" />
+    </linearGradient>
+    <filter id="softShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#0f172a" flood-opacity="0.16" />
+    </filter>
+    <style>
+      .neighbor { fill: #ffffff; stroke: #94a3b8; stroke-width: 1.2; opacity: 0.72; }
+      .country { fill: #f7f1df; stroke: #1f2937; stroke-width: 4; filter: url(#softShadow); }
+      .admin1 { fill: none; stroke: #64748b; stroke-width: 1.1; stroke-dasharray: 6 7; opacity: 0.75; }
+      .river { fill: none; stroke: #1d9bd1; stroke-width: 3; stroke-linecap: round; opacity: 0.88; }
+      .lake { fill: #8ed1ea; stroke: #0ea5e9; stroke-width: 1.5; opacity: 0.8; }
+      .city circle { fill: #ef4444; stroke: #ffffff; stroke-width: 2; }
+      .city text, .terrain-label { fill: #172033; font: 700 24px system-ui, sans-serif; paint-order: stroke; stroke: #ffffff; stroke-width: 5; stroke-linejoin: round; }
+      .map-title { fill: #0f172a; font: 800 46px system-ui, sans-serif; }
+      .map-subtitle { fill: #475569; font: 600 24px system-ui, sans-serif; }
+      .footer { fill: #64748b; font: 500 18px system-ui, sans-serif; }
+    </style>
+  </defs>
+  <rect width="100%" height="100%" fill="#eaf3f8" />
+  <rect x="40" y="40" width="1520" height="1020" rx="32" fill="#ffffff" opacity="0.54" />
+  <path class="neighbor" d="M 884.5 812.9 L 921.7 802.7 L 929.4 860.1 L 1093.1 827.1 L 1266 832.6 L 1392.3 838.8 L 1535.5 697.4 L 1691.5 563.3 L 1823.6 434.5 L 1863.4 505.7 L 1891.8 670.9 L 1785 671.7 L 1767.8 807.9 L 1804.9 836.9 L 1710.2 878.1 L 1709.7 963.6 L 1648.7 1050.1 L 1643.3 1134.3 L 1601.1 1178.5 L 972.6 1073.1 L 892.5 861.3 L 884.5 812.9 Z" />
+<path class="neighbor" d="M 1643.3 1134.3 L 1648.7 1050.1 L 1709.7 963.6 L 1710.2 878.1 L 1804.9 836.9 L 1767.8 807.9 L 1785 671.7 L 1891.8 670.9 L 1985.5 813.7 L 2102.2 889.6 L 2255.6 916.9 L 2379.5 955 L 2473.8 1074.9 L 2530.2 1144.4 L 2605 1170.8 L 2604.6 1217.5 L 2528.5 1342.1 L 2495.1 1400.8 L 2407 1467.7 L 2329 1610.9 L 2234.2 1599.9 L 2190.7 1649.8 L 2157.1 1755.8 L 2182.8 1895.6 L 2163.1 1921.2 L 2066.9 1920.6 L 1936.3 1998.7 L 1915.9 2100.6 L 1868.1 2144.7 L 1738 2143 L 1656.2 2195.7 L 1657.2 2280.1 L 1556 2338.2 L 1440.6 2318.5 L 1300.8 2389 L 1204.2 2400.8 L 1136 2254.7 L 972.4 1909.7 L 1599.7 1700.6 L 1739.1 1282.4 L 1643.3 1134.3 Z M 1863.4 505.7 L 1823.6 434.5 L 1884.5 363.3 L 1910.4 381.4 L 1890.6 467.8 L 1863.4 505.7 Z" />
+<path class="neighbor" d="M 254.8 -375 L 139.1 -484.9 L 137.1 -596.3 L 70.3 -596.2 L 104.5 -747.7 L -3 -906.6 L -259.2 -1021.2 L -404.1 -1219.9 L -355.6 -1383.1 L -250.4 -1455.3 L -266.1 -1577.4 L -403.3 -1640.2 L -538.7 -1889.6 L -538.7 -1889.6 L -653.1 -2057.1 L -612.2 -2121.9 L -677.5 -2361.7 L -534.3 -2421.2 L -501.1 -2342.3 L -395.5 -2245.8 L -252.1 -2218 L -176.4 -2224.2 L 70.2 -2378.4 L 148.6 -2393.9 L 210.4 -2332.5 L 138.3 -2229.1 L 268.7 -2119.6 L 320.8 -2130 L 386.9 -1975.8 L 585.2 -1932.3 L 730.4 -1827.4 L 1027.6 -1791.3 L 1354.2 -1846.6 L 1374.2 -1895.5 L 1558 -1936 L 1706.7 -2055.5 L 1846.5 -2049.5 L 1938.3 -2088.4 L 2087 -2069.2 L 2318.2 -1963.2 L 2485.2 -1940.3 L 2724.1 -1755.1 L 2880 -1747.6 L 2898.3 -1571.7 L 2813.1 -1311.2 L 2755.7 -1159 L 2846.7 -1128.2 L 2757.3 -1013.7 L 2825.7 -846.7 L 2842.1 -714 L 3000.5 -678.8 L 3017.6 -544.2 L 2828 -354.6 L 2931.5 -244.6 L 3015.6 -118.4 L 3215.5 -26.4 L 3221.3 157.7 L 3321.3 191.6 L 3338.6 287.9 L 3037 395.9 L 2958.2 638.8 L 2564.9 575.7 L 2336.9 527.6 L 2101 500.4 L 2011.8 244 L 1911.7 207 L 1751 244.4 L 1540.1 345.5 L 1284.6 276.2 L 1073.6 115.5 L 872.2 56 L 732.6 -142.4 L 578.3 -421.2 L 465.8 -387.3 L 332.9 -456.6 L 254.8 -375 Z" />
+<path class="neighbor" d="M -2591.3 -255.8 L -2358.6 -222.5 L -2268.2 -286.9 L -2218.2 -362.1 L -2058.6 -391.1 L -2024.2 -461.1 L -1955.1 -496.6 L -2163.5 -705.7 L -1744.7 -810.6 L -1704.9 -842.2 L -1453 -785.5 L -1141.5 -639.1 L -551.9 -218.6 L -163.2 -201.9 L 23.1 -181.7 L 75.2 -82.1 L 223.1 -87.6 L 304.9 92.8 L 407.8 140.5 L 443.6 214 L 586.1 301.8 L 598.8 388.1 L 577.9 457.8 L 604.4 528 L 664.5 586.6 L 692.4 655.2 L 723.6 706.4 L 786.9 747.9 L 844.8 733.1 L 884.5 812.9 L 892.5 861.3 L 972.6 1073.1 L 1601.1 1178.5 L 1643.3 1134.3 L 1739.1 1282.4 L 1599.7 1700.6 L 972.4 1909.7 L 369.6 1989.8 L 174.4 2083.9 L 24.6 2303.5 L -73 2338.3 L -125.3 2268.6 L -205.4 2279.1 L -407.6 2258.2 L -445.9 2237.3 L -687.2 2242.1 L -743.9 2261 L -829.8 2206.6 L -885.2 2309.4 L -863.7 2397.5 L -955.5 2464.2 L -982.7 2375 L -1045.7 2312 L -1061.8 2228.6 L -1169.8 2153.7 L -1281.3 1978.4 L -1340.2 1808 L -1484.9 1664.1 L -1578.1 1629.7 L -1716.6 1430.5 L -1740.8 1285.2 L -1731.9 1161.2 L -1851.8 929.4 L -1949.8 847.8 L -2062.8 804.5 L -2131.6 684.7 L -2120.1 637.5 L -2178.2 529.1 L -2239.3 482.4 L -2320.9 326.8 L -2448.3 158.2 L -2554.9 14.6 L -2659 15.6 L -2626.5 -99.1 L -2617.2 -172.3 L -2591.3 -255.8 Z" />
+
+<path class="country" d="M 723.6 706.4 L 709.8 554.3 L 766.1 444.6 L 823.2 422.1 L 886.5 487.6 L 890.2 610 L 844.8 733.1 L 786.9 747.9 L 723.6 706.4 Z" />
+
+
+<g class="city"><circle cx="874.7839772727278" cy="595.2246499999997" r="5" /><text x="886.7839772727278" y="599.2246499999997">Doha</text></g>
+<g class="city"><circle cx="676.1651772727294" cy="396.67610454545496" r="5" /><text x="688.1651772727294" y="400.67610454545496">Manama</text></g>
+<text class="map-title" x="80" y="105">Qatar Political Study Map</text>
+<text class="map-subtitle" x="80" y="145">Capital: Doha | Continent: Asia</text>
+  <text class="footer" x="80" y="1036">Made with Natural Earth. Free vector and raster map data @ naturalearthdata.com.</text>
+</svg>

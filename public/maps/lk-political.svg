@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1100" viewBox="0 0 1600 1100" role="img" aria-labelledby="title desc">
+  <title id="title">Sri Lanka Political Study Map</title>
+  <desc id="desc">Made with Natural Earth. Free vector and raster map data @ naturalearthdata.com.</desc>
+  <defs>
+    <linearGradient id="terrain" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#6c8c53" />
+      <stop offset="42%" stop-color="#d5c487" />
+      <stop offset="72%" stop-color="#b88b5f" />
+      <stop offset="100%" stop-color="#f1f5ee" />
+    </linearGradient>
+    <filter id="softShadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="10" stdDeviation="12" flood-color="#0f172a" flood-opacity="0.16" />
+    </filter>
+    <style>
+      .neighbor { fill: #ffffff; stroke: #94a3b8; stroke-width: 1.2; opacity: 0.72; }
+      .country { fill: #f7f1df; stroke: #1f2937; stroke-width: 4; filter: url(#softShadow); }
+      .admin1 { fill: none; stroke: #64748b; stroke-width: 1.1; stroke-dasharray: 6 7; opacity: 0.75; }
+      .river { fill: none; stroke: #1d9bd1; stroke-width: 3; stroke-linecap: round; opacity: 0.88; }
+      .lake { fill: #8ed1ea; stroke: #0ea5e9; stroke-width: 1.5; opacity: 0.8; }
+      .city circle { fill: #ef4444; stroke: #ffffff; stroke-width: 2; }
+      .city text, .terrain-label { fill: #172033; font: 700 24px system-ui, sans-serif; paint-order: stroke; stroke: #ffffff; stroke-width: 5; stroke-linejoin: round; }
+      .map-title { fill: #0f172a; font: 800 46px system-ui, sans-serif; }
+      .map-subtitle { fill: #475569; font: 600 24px system-ui, sans-serif; }
+      .footer { fill: #64748b; font: 500 18px system-ui, sans-serif; }
+    </style>
+  </defs>
+  <rect width="100%" height="100%" fill="#eaf3f8" />
+  <rect x="40" y="40" width="1520" height="1020" rx="32" fill="#ffffff" opacity="0.54" />
+  <path class="neighbor" d="M 2778.7 -1844.7 L 2787.7 -1799.4 L 2745.9 -1777.6 L 2755.7 -1704.1 L 2670.4 -1725.7 L 2516 -1643.3 L 2519.6 -1575 L 2453.7 -1474.9 L 2447.7 -1416.8 L 2394.5 -1318.4 L 2301.3 -1345.6 L 2296.6 -1222.1 L 2269.7 -1181.5 L 2282.3 -1130.9 L 2223.4 -1102.6 L 2160.6 -1291.8 L 2127.7 -1291.4 L 2108.2 -1215.2 L 2042.8 -1277 L 2079.7 -1344.9 L 2133 -1351.8 L 2188.1 -1452.8 L 2119.3 -1473.1 L 2008.6 -1471.4 L 1895.1 -1487.7 L 1884.6 -1570.7 L 1827.6 -1576.6 L 1733.1 -1628.1 L 1691 -1547.2 L 1777.1 -1484 L 1702.5 -1439.6 L 1676 -1396.1 L 1749.5 -1364.1 L 1729.2 -1292.2 L 1770.5 -1202.5 L 1789.1 -1104.3 L 1772 -1060.7 L 1690.8 -1062.2 L 1543.8 -1037.5 L 1550.6 -947.7 L 1486.9 -877.1 L 1315.2 -796.8 L 1181.7 -656.4 L 1092 -581.2 L 973.1 -503.1 L 973 -448.2 L 913.5 -418.8 L 806 -376.1 L 750.3 -369.8 L 714.5 -278.8 L 739.4 -123.6 L 745.7 -24.6 L 695.1 88.7 L 694.6 291.4 L 632.8 297.2 L 578.5 388.2 L 614.9 427.5 L 506.1 461.3 L 465.9 542.4 L 418 576.7 L 305.1 465.3 L 249.8 298.3 L 204.1 177.9 L 162.3 121.5 L 98.9 6.9 L 69.3 -142.3 L 48.7 -216.8 L -59.9 -380.7 L -109.3 -611.9 L -145 -764.6 L -144.5 -909.1 L -167.7 -1020.8 L -341.3 -949.4 L -425.4 -963.7 L -581.2 -1108.3 L -523.9 -1151.4 L -559.1 -1198.2 L -699 -1299.5 L -619.6 -1379.1 L -357 -1378.8 L -380.7 -1481.2 L -447.8 -1541.7 L -461.4 -1633.5 L -539.4 -1687.1 L -408 -1812.2 L -269.4 -1803.1 L -144.6 -1928.2 L -69.8 -2049.2 L 46 -2169 L 44.1 -2254 L 145.9 -2323 L 49.6 -2381.9 L 8.1 -2462.6 L -34.1 -2567.2 L 24.4 -2618.6 L 205.3 -2589.5 L 338.3 -2607.2 L 453.5 -2707.5 L 581.8 -2567.7 L 569.7 -2470.4 L 617.1 -2409.3 L 613.2 -2348.4 L 527.6 -2364.4 L 561.1 -2232.9 L 678.3 -2157.4 L 844.1 -2074 L 768.4 -2019.8 L 722.1 -1908.2 L 837.7 -1863.1 L 950.1 -1804.6 L 1105.7 -1737.6 L 1269.3 -1722.2 L 1338.1 -1661.5 L 1430.3 -1650.1 L 1573.8 -1622.3 L 1673.1 -1624.3 L 1686.8 -1671.5 L 1671.1 -1747.3 L 1680.3 -1798.7 L 1753.1 -1823.8 L 1763.1 -1729.9 L 1765.7 -1706 L 1874.1 -1660.7 L 1949.1 -1679.3 L 2049.8 -1671.3 L 2147.2 -1674.9 L 2155.5 -1748.1 L 2107 -1786.2 L 2203.2 -1801.2 L 2311.8 -1889.9 L 2449.3 -1965.9 L 2549.4 -1936.5 L 2634.4 -1986.8 L 2690.4 -1912.6 L 2650.1 -1862.5 L 2778.7 -1844.7 Z" />
+
+<path class="country" d="M 924.8 629.5 L 906.9 753.7 L 856.8 787.7 L 753.1 815 L 696.3 720.1 L 675.2 548.7 L 729.2 355 L 811.6 421.3 L 867.1 505.3 L 924.8 629.5 Z" />
+
+
+<g class="city"><circle cx="554.9442385159871" cy="238.5044095662845" r="5" /><text x="566.9442385159871" y="242.5044095662845">Tiruchirappalli</text></g>
+<g class="city"><circle cx="694.5580111356974" cy="700.0394895049106" r="5" /><text x="706.5580111356974" y="704.0394895049106">Colombo</text></g>
+<g class="city"><circle cx="705.5628175162651" cy="703.852672453412" r="5" /><text x="717.5628175162651" y="707.852672453412">Sri Jayawardenepura Kotte</text></g>
+<g class="city"><circle cx="791.4623928990474" cy="658.5200331560378" r="5" /><text x="803.4623928990474" y="662.5200331560378">Kandy</text></g>
+<text class="map-title" x="80" y="105">Sri Lanka Political Study Map</text>
+<text class="map-subtitle" x="80" y="145">Capital: Sri Jayawardenepura Kotte | Continent: Asia</text>
+  <text class="footer" x="80" y="1036">Made with Natural Earth. Free vector and raster map data @ naturalearthdata.com.</text>
+</svg>
