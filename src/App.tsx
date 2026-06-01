@@ -1,13 +1,46 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef, type ChangeEvent } from 'react';
 import { countries, Country } from './data/countries';
 import { CountryCard } from './components/CountryCard';
 import { CountryDetailModal } from './components/CountryDetailModal';
-import { GameStats, ActiveSection, ActiveGame, TriviaQuestion, AICountryTrivia } from './types';
-import { getStaticTriviaQuestion, postJson } from './services/staticCountryTools';
+import { GameStats, ActiveSection, ActiveGame, TriviaQuestion, AICountryTrivia, LearningMemory, QuizGameId } from './types';
+import {
+  canStartQuizScope,
+  createEmptyLearningMemory,
+  exportLearningMemory,
+  generateFactFictionQuestion,
+  generateMultipleChoiceQuestion,
+  getLearningMemorySummary,
+  getQuizCountryPool,
+  loadLearningMemory,
+  parseLearningMemoryBackup,
+  recordQuizAnswer,
+  saveLearningMemory,
+} from './services/quizEngine';
+import { countryCodeToFlagEmoji } from './services/flagEmoji';
+import {
+  CONTINENTS,
+  WORLD_SCOPE,
+  getScopeLabel,
+  getScopeTrail,
+  getSubregionsForContinent,
+  type ContinentName,
+  type QuizScope,
+} from './data/quizRegions';
 import { 
   Globe, Trophy, Sparkles, Star, Award, Heart, RefreshCw, CheckCircle, 
-  X, HelpCircle, Compass, Search, Map, Coins, Landmark, Languages, ShieldAlert 
+  X, HelpCircle, Compass, Search, Map, Coins, Landmark, ShieldAlert, Download, Upload, Wifi, WifiOff
 } from 'lucide-react';
+
+type QuizGame = QuizGameId;
+
+const createDefaultQuizScopes = (): Record<QuizGame, QuizScope> => ({
+  flag: WORLD_SCOPE,
+  capital: WORLD_SCOPE,
+  currency: WORLD_SCOPE,
+  continent: WORLD_SCOPE,
+  'ai-trivia': WORLD_SCOPE,
+  'india-trivia': WORLD_SCOPE,
+});
 
 export default function App() {
   const [activeSection, setActiveSection] = useState<ActiveSection>('learn');
@@ -37,8 +70,13 @@ export default function App() {
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
   const [hasAnswered, setHasAnswered] = useState<boolean>(false);
   const [correctAnswerSelected, setCorrectAnswerSelected] = useState<boolean>(false);
+  const [quizScopes, setQuizScopes] = useState<Record<QuizGame, QuizScope>>(createDefaultQuizScopes);
+  const [activeQuizScope, setActiveQuizScope] = useState<QuizScope>(WORLD_SCOPE);
+  const [learningMemory, setLearningMemory] = useState<LearningMemory>(() => createEmptyLearningMemory());
+  const [isOfflineReady, setIsOfflineReady] = useState<boolean>(false);
+  const importInputRef = useRef<HTMLInputElement | null>(null);
 
-  // AI Trivia state
+  // Offline Fact or Fiction state
   const [aiTrivia, setAiTrivia] = useState<AICountryTrivia | null>(null);
   const [isLoadingAiTrivia, setIsLoadingAiTrivia] = useState<boolean>(false);
   const [aiTriviaExplanation, setAiTriviaExplanation] = useState<string>('');
@@ -50,7 +88,7 @@ export default function App() {
     { id: 'capital-chief', name: 'Capital Tycoon', desc: 'Reach a High Score of 8+ in Capitals Quest', icon: Landmark, color: 'text-purple-500 bg-purple-50 border-purple-100' },
     { id: 'currency-collector', name: 'Nautilus Banker', desc: 'Reach a High Score of 8+ in Currencies Match', icon: Coins, color: 'text-emerald-500 bg-emerald-50 border-emerald-100' },
     { id: 'globe-trotter', name: 'World Ambassador', desc: 'Reach a High Score of 8+ in Continents Sort', icon: Globe, color: 'text-blue-500 bg-blue-50 border-blue-100' },
-    { id: 'ai-scholar', name: 'Truth Decoder', desc: 'Claim a High Score of 5+ in Gemini AI facts', icon: Sparkles, color: 'text-rose-500 bg-rose-50 border-rose-100' },
+    { id: 'ai-scholar', name: 'Truth Decoder', desc: 'Claim a High Score of 5+ in Fact or Fiction', icon: Sparkles, color: 'text-rose-500 bg-rose-50 border-rose-100' },
     { id: 'diplomat', name: 'Diplomacy Expert', desc: 'Score 6+ in India Connection Quiz', icon: Award, color: 'text-orange-500 bg-orange-50 border-orange-100' },
   ];
 
@@ -64,6 +102,25 @@ export default function App() {
         console.error("Failed to parse local storage stats", e);
       }
     }
+  }, []);
+
+  useEffect(() => {
+    setLearningMemory(loadLearningMemory());
+
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.ready
+        .then(() => setIsOfflineReady(true))
+        .catch(() => setIsOfflineReady(false));
+    }
+
+    const updateOnlineStatus = () => setIsOfflineReady((current) => current || !navigator.onLine);
+    window.addEventListener('online', updateOnlineStatus);
+    window.addEventListener('offline', updateOnlineStatus);
+
+    return () => {
+      window.removeEventListener('online', updateOnlineStatus);
+      window.removeEventListener('offline', updateOnlineStatus);
+    };
   }, []);
 
   // Update badges when stats change
@@ -88,225 +145,55 @@ export default function App() {
     saveStats(updated);
   };
 
-  // Generate a random Flag Question
-  const generateFlagQuestion = (): TriviaQuestion => {
-    // Pick correct country
-    const correctCountry = countries[Math.floor(Math.random() * countries.length)];
-    
-    // Choose distractor option countries
-    const others = countries.filter(c => c.code !== correctCountry.code);
-    const shuffledOthers = [...others].sort(() => 0.5 - Math.random());
-    const distractors = shuffledOthers.slice(0, 3).map(c => c.name);
-    
-    const options = [correctCountry.name, ...distractors].sort(() => 0.5 - Math.random());
-
-    return {
-      question: `Which country is represented by this national flag?`,
-      options,
-      correctAnswer: correctCountry.name,
-      flagCode: correctCountry.code,
-      explanation: `That's correct! ${correctCountry.name} is a key nation located in ${correctCountry.continent} with an estimated population of over ${new Intl.NumberFormat().format(correctCountry.population)} citizens. Its capital is ${correctCountry.capital}.`
-    };
+  const getCountryPool = (game: ActiveGame, scope: QuizScope = activeQuizScope): Country[] => {
+    if (game === 'none') return countries;
+    return getQuizCountryPool(countries, game, scope);
   };
 
-  // Generate a Capital Question
-  const generateCapitalQuestion = (): TriviaQuestion => {
-    // Option A: given country, pick capital (50% chance)
-    // Option B: given capital, pick country (50% chance)
-    const isAskCapital = Math.random() > 0.5;
-    const correctCountry = countries[Math.floor(Math.random() * countries.length)];
-    const others = countries.filter(c => c.code !== correctCountry.code);
-    const shuffledOthers = [...others].sort(() => 0.5 - Math.random());
-
-    if (isAskCapital) {
-      const distractors = shuffledOthers.slice(0, 3).map(c => c.capital);
-      const options = [correctCountry.capital, ...distractors].sort(() => 0.5 - Math.random());
-
-      return {
-        question: `What is the capital city of ${correctCountry.name}?`,
-        options,
-        correctAnswer: correctCountry.capital,
-        flagCode: correctCountry.code,
-        explanation: `Indeed! ${correctCountry.capital} serves as the primary capital city for ${correctCountry.name}.`
-      };
-    } else {
-      const distractors = shuffledOthers.slice(0, 3).map(c => c.name);
-      const options = [correctCountry.name, ...distractors].sort(() => 0.5 - Math.random());
-
-      return {
-        question: `Which nation claims ${correctCountry.capital} as its official capital city?`,
-        options,
-        correctAnswer: correctCountry.name,
-        flagCode: correctCountry.code,
-        explanation: `${correctCountry.capital} is the vibrant cultural capital city of ${correctCountry.name}.`
-      };
-    }
+  const canStartGameScope = (game: QuizGame, scope: QuizScope): boolean => {
+    return canStartQuizScope(countries, game, scope);
   };
 
-  // Generate a Currency Question
-  const generateCurrencyQuestion = (): TriviaQuestion => {
-    const correctCountry = countries[Math.floor(Math.random() * countries.length)];
-    const others = countries.filter(c => c.code !== correctCountry.code);
-    const shuffledOthers = [...others].sort(() => 0.5 - Math.random());
-
-    const isSymbolAsk = Math.random() > 0.5;
-
-    if (isSymbolAsk) {
-      const distractors = shuffledOthers.slice(0, 3).map(c => `${c.currency.code} (${c.currency.symbol})`);
-      const correctText = `${correctCountry.currency.code} (${correctCountry.currency.symbol})`;
-      const options = [correctText, ...distractors].sort(() => 0.5 - Math.random());
-
-      return {
-        question: `Which official currency does ${correctCountry.name} use for everyday commerce?`,
-        options,
-        correctAnswer: correctText,
-        flagCode: correctCountry.code,
-        explanation: `${correctCountry.name} transacts in the ${correctCountry.currency.name} (${correctCountry.currency.code}), recognized with the icon "${correctCountry.currency.symbol}".`
-      };
-    } else {
-      const distractors = shuffledOthers.slice(0, 3).map(c => c.name);
-      const options = [correctCountry.name, ...distractors].sort(() => 0.5 - Math.random());
-
-      return {
-        question: `Which of these countries conducts official economic trade using the ${correctCountry.currency.name} ("${correctCountry.currency.symbol}")?`,
-        options,
-        correctAnswer: correctCountry.name,
-        flagCode: correctCountry.code,
-        explanation: `Correct! ${correctCountry.name} uses the ${correctCountry.currency.name} as their official statutory currency.`
-      };
-    }
+  const updateQuizScope = (game: QuizGame, scope: QuizScope) => {
+    setQuizScopes((current) => ({ ...current, [game]: scope }));
   };
 
-  // Generate a Continent Question
-  const generateContinentQuestion = (): TriviaQuestion => {
-    const correctCountry = countries[Math.floor(Math.random() * countries.length)];
-    
-    // Standard list of Continents
-    const options = ["Africa", "Asia", "Europe", "North America", "South America", "Oceania"];
-
-    return {
-      question: `On which of the Earth's continents can you locate ${correctCountry.name}?`,
-      options,
-      correctAnswer: correctCountry.continent,
-      flagCode: correctCountry.code,
-      explanation: `${correctCountry.name} is nestled in the continent of ${correctCountry.continent}.`
-    };
-  };
-
-  // Generate an India Relation Question
-  const generateIndiaRelationQuestion = (): TriviaQuestion => {
-    // Collect countries that have indiaRelation objects
-    const indiaRelated = countries.filter(c => c.indiaRelation !== undefined);
-    
-    // Choose randomly from multiple styles of questions
-    const randomChoiceStyle = Math.floor(Math.random() * 5);
-    const pickCountry = indiaRelated[Math.floor(Math.random() * indiaRelated.length)];
-    
-    const others = countries.filter(c => c.code !== pickCountry.code);
-    const shuffledOthers = [...others].sort(() => 0.5 - Math.random());
-    const distractors = shuffledOthers.slice(0, 3).map(c => c.name);
-    const options = [pickCountry.name, ...distractors].sort(() => 0.5 - Math.random());
-
-    if (randomChoiceStyle === 0 && pickCountry.indiaRelation?.jointExercise) {
-      // Joint exercise quiz
-      const exerciseName = pickCountry.indiaRelation.jointExercise;
-      return {
-        question: `India conducts the popular joint defense exercise "${exerciseName}" with which of these nations?`,
-        options,
-        correctAnswer: pickCountry.name,
-        flagCode: pickCountry.code,
-        explanation: `Correct! India coordinates defense operations with ${pickCountry.name} via the "${exerciseName}" exercises. ${pickCountry.indiaRelation.summary}`
-      };
-    } else if (randomChoiceStyle === 1 && pickCountry.indiaRelation?.borderSharing) {
-      // Border sharing quiz
-      return {
-        question: `Which country's border/geography connection to India is described as: "${pickCountry.indiaRelation.borderSharing}"?`,
-        options,
-        correctAnswer: pickCountry.name,
-        flagCode: pickCountry.code,
-        explanation: `Spot on! ${pickCountry.name} is key to India's geopolitical landscape: ${pickCountry.indiaRelation.borderSharing}`
-      };
-    } else if (randomChoiceStyle === 2 && pickCountry.indiaRelation?.sharedProjects) {
-      // Cooperative projects quiz
-      return {
-        question: `Which country is a key strategic partner in Indo-Bilateral actions including "${pickCountry.indiaRelation.sharedProjects}"?`,
-        options,
-        correctAnswer: pickCountry.name,
-        flagCode: pickCountry.code,
-        explanation: `Excellent! ${pickCountry.name} coordinates with India on major projects: ${pickCountry.indiaRelation.sharedProjects}`
-      };
-    } else if (randomChoiceStyle === 3 && pickCountry.indiaRelation?.funFactsWithIndia && pickCountry.indiaRelation.funFactsWithIndia.length > 0) {
-      // Fun fact quiz
-      const factList = pickCountry.indiaRelation.funFactsWithIndia;
-      const fact = factList[Math.floor(Math.random() * factList.length)];
-      return {
-        question: `Bilateral Fact: Which country shares this unique link with India? "${fact}"`,
-        options,
-        correctAnswer: pickCountry.name,
-        flagCode: pickCountry.code,
-        explanation: `You got it! ${pickCountry.name} shares this unique relationship with India. ${pickCountry.indiaRelation.summary}`
-      };
-    } else {
-      // Summary connection quiz
-      const summaryHint = pickCountry.indiaRelation?.summary || "Shares close historical and cultural ties with India.";
-      const maskedSummary = summaryHint.replace(new RegExp(pickCountry.name, 'gi'), "[This Country]");
-      return {
-        question: `Indo-Diplomatic Hint: "${maskedSummary}" — Which country is referred to?`,
-        options,
-        correctAnswer: pickCountry.name,
-        flagCode: pickCountry.code,
-        explanation: `Precisely! ${pickCountry.name} has a rich relationship history with India: ${summaryHint}`
-      };
-    }
-  };
-
-  // Fetch AI trivia statement from server
-  const fetchAiTriviaQuestion = async () => {
-    setIsLoadingAiTrivia(true);
+  // Generate offline fact-or-fiction trivia from local country data.
+  const fetchAiTriviaQuestion = (scope: QuizScope = activeQuizScope, memoryOverride: LearningMemory = learningMemory) => {
+    setIsLoadingAiTrivia(false);
     setHasAnswered(false);
     setSelectedAnswer(null);
     setCorrectAnswerSelected(false);
     setAiTriviaExplanation('');
-    setAiTrivia(null);
+    setAiTrivia(generateFactFictionQuestion(countries, scope, memoryOverride));
+  };
 
-    // Filter to a random country to direct our prompt better, or just any general random country
-    const randomCountry = countries[Math.floor(Math.random() * countries.length)];
+  const queueNextQuestion = (
+    game: ActiveGame,
+    scope: QuizScope = activeQuizScope,
+    memoryOverride: LearningMemory = learningMemory
+  ) => {
+    if (game === 'none') return;
 
-    try {
-      const data = await postJson<AICountryTrivia>('/api/countries/trivia', {
-        countryName: randomCountry.name,
-      });
-      setAiTrivia(data);
-    } catch (e: any) {
-      console.warn('Using static trivia fallback:', e);
-      setAiTrivia(getStaticTriviaQuestion(randomCountry, countries));
-    } finally {
-      setIsLoadingAiTrivia(false);
+    if (game === 'ai-trivia') {
+      fetchAiTriviaQuestion(scope, memoryOverride);
+      return;
     }
+
+    setCurrentFlagQuestion(generateMultipleChoiceQuestion(game, countries, scope, memoryOverride));
   };
 
   // Start a chosen quiz game
-  const handleStartGame = (game: ActiveGame) => {
+  const handleStartGame = (game: ActiveGame, scope: QuizScope = activeQuizScope) => {
     setActiveGame(game);
+    setActiveQuizScope(scope);
     setGameScore(0);
     setLives(3);
     setQuestionsAnswered(0);
     setHasAnswered(false);
     setSelectedAnswer(null);
 
-    if (game === 'flag') {
-      setCurrentFlagQuestion(generateFlagQuestion());
-    } else if (game === 'capital') {
-      setCurrentFlagQuestion(generateCapitalQuestion());
-    } else if (game === 'currency') {
-      setCurrentFlagQuestion(generateCurrencyQuestion());
-    } else if (game === 'continent') {
-      setCurrentFlagQuestion(generateContinentQuestion());
-    } else if (game === 'ai-trivia') {
-      fetchAiTriviaQuestion();
-    } else if (game === 'india-trivia') {
-      setCurrentFlagQuestion(generateIndiaRelationQuestion());
-    }
+    queueNextQuestion(game, scope, learningMemory);
   };
 
   // Submit response for multiple-choice questions (flag, capital, currency, continent)
@@ -324,6 +211,13 @@ export default function App() {
     } else {
       setLives(prev => Math.max(0, prev - 1));
     }
+
+    if (activeGame !== 'none' && currentFlagQuestion) {
+      const updatedMemory = recordQuizAnswer(learningMemory, activeGame, currentFlagQuestion, isCorrect);
+      setLearningMemory(updatedMemory);
+      saveLearningMemory(updatedMemory);
+    }
+
     setQuestionsAnswered(prev => prev + 1);
   };
 
@@ -342,6 +236,11 @@ export default function App() {
     } else {
       setLives(prev => Math.max(0, prev - 1));
     }
+
+    const updatedMemory = recordQuizAnswer(learningMemory, 'ai-trivia', aiTrivia, isCorrect);
+    setLearningMemory(updatedMemory);
+    saveLearningMemory(updatedMemory);
+
     setQuestionsAnswered(prev => prev + 1);
   };
 
@@ -356,19 +255,7 @@ export default function App() {
       return;
     }
 
-    if (activeGame === 'flag') {
-      setCurrentFlagQuestion(generateFlagQuestion());
-    } else if (activeGame === 'capital') {
-      setCurrentFlagQuestion(generateCapitalQuestion());
-    } else if (activeGame === 'currency') {
-      setCurrentFlagQuestion(generateCurrencyQuestion());
-    } else if (activeGame === 'continent') {
-      setCurrentFlagQuestion(generateContinentQuestion());
-    } else if (activeGame === 'ai-trivia') {
-      fetchAiTriviaQuestion();
-    } else if (activeGame === 'india-trivia') {
-      setCurrentFlagQuestion(generateIndiaRelationQuestion());
-    }
+    queueNextQuestion(activeGame, activeQuizScope, learningMemory);
   };
 
   const concludeGame = () => {
@@ -421,6 +308,35 @@ export default function App() {
       };
       setStats(cleared);
       localStorage.setItem('world_learner_stats_v3', JSON.stringify(cleared));
+      const clearedMemory = createEmptyLearningMemory();
+      setLearningMemory(clearedMemory);
+      saveLearningMemory(clearedMemory);
+    }
+  };
+
+  const handleExportProgress = () => {
+    const blob = new Blob([exportLearningMemory(learningMemory)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `world-learner-progress-${new Date().toISOString().slice(0, 10)}.json`;
+    link.click();
+    URL.revokeObjectURL(url);
+  };
+
+  const handleImportProgress = async (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    try {
+      const importedMemory = parseLearningMemoryBackup(await file.text());
+      setLearningMemory(importedMemory);
+      saveLearningMemory(importedMemory);
+    } catch (error) {
+      console.error('Could not import progress backup', error);
+      window.alert('Could not import that progress file. Please choose a valid World Learner backup JSON.');
+    } finally {
+      event.target.value = '';
     }
   };
 
@@ -440,6 +356,107 @@ export default function App() {
 
     return matchContinent && matchIndiaRelations && matchSearch;
   });
+
+  const renderQuizScopePicker = (game: QuizGame, startLabel: string, buttonClassName: string) => {
+    const selectedScope = quizScopes[game];
+    const focusedContinent = selectedScope.level === 'world' ? null : selectedScope.continent;
+    const selectedCount = getCountryPool(game, selectedScope).length;
+    const canStart = canStartGameScope(game, selectedScope);
+    const memorySummary = getLearningMemorySummary(learningMemory, countries, game, selectedScope);
+    const makeId = (label: string) => label.replace(/[^a-z0-9]+/gi, '-').toLowerCase();
+
+    const renderScopeButton = (label: string, scope: QuizScope) => {
+      const count = getCountryPool(game, scope).length;
+      const isSelected = getScopeTrail(selectedScope) === getScopeTrail(scope);
+      const isAvailable = canStartGameScope(game, scope);
+
+      return (
+        <button
+          key={getScopeTrail(scope)}
+          id={`scope-${game}-${makeId(label)}`}
+          type="button"
+          disabled={!isAvailable}
+          title={isAvailable ? `${count} countries available` : `${count} countries available; choose a larger study area`}
+          onClick={() => updateQuizScope(game, scope)}
+          className={`min-h-9 px-3 py-2 rounded-lg border text-[11px] font-extrabold transition-all flex items-center justify-between gap-2 ${
+            isSelected
+              ? 'bg-blue-100 border-blue-300 text-blue-800 shadow-2xs'
+              : isAvailable
+              ? 'bg-white border-slate-100 text-slate-600 hover:bg-slate-50 hover:text-slate-900 cursor-pointer'
+              : 'bg-slate-50 border-slate-100 text-slate-300 cursor-not-allowed'
+          }`}
+        >
+          <span className="truncate">{label}</span>
+          <span className="text-[10px] opacity-70 shrink-0">{count}</span>
+        </button>
+      );
+    };
+
+    return (
+      <div className="mt-5 pt-4 border-t border-slate-100 space-y-3">
+        <div className="flex items-center justify-between gap-3">
+          <span className="text-[10px] uppercase tracking-wider font-black text-slate-400">
+            Choose Study Area
+          </span>
+          <span className="text-[10px] font-bold text-slate-500">
+            {selectedCount} countries
+          </span>
+        </div>
+
+        <div className="grid grid-cols-3 gap-2 text-center">
+          <div className="rounded-lg bg-emerald-50 border border-emerald-100 px-2 py-2">
+            <p className="text-[10px] font-black text-emerald-700">{memorySummary.masteredCount}</p>
+            <p className="text-[9px] uppercase tracking-wider font-bold text-emerald-600">Mastered</p>
+          </div>
+          <div className="rounded-lg bg-rose-50 border border-rose-100 px-2 py-2">
+            <p className="text-[10px] font-black text-rose-700">{memorySummary.weakCount}</p>
+            <p className="text-[9px] uppercase tracking-wider font-bold text-rose-600">Weak</p>
+          </div>
+          <div className="rounded-lg bg-amber-50 border border-amber-100 px-2 py-2">
+            <p className="text-[10px] font-black text-amber-700">{memorySummary.bestStreak}</p>
+            <p className="text-[9px] uppercase tracking-wider font-bold text-amber-600">Best</p>
+          </div>
+        </div>
+
+        <div className="grid grid-cols-2 gap-2">
+          {renderScopeButton('World', WORLD_SCOPE)}
+          {CONTINENTS.map((continent) => renderScopeButton(continent, { level: 'continent', continent }))}
+        </div>
+
+        {focusedContinent && (
+          <div className="bg-slate-50 border border-slate-100 rounded-xl p-3 space-y-2">
+            <div className="text-[10px] uppercase tracking-wider font-black text-slate-400">
+              {focusedContinent} Subregions
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+              {getSubregionsForContinent(focusedContinent as ContinentName).map((subregion) =>
+                renderScopeButton(subregion, { level: 'subregion', continent: focusedContinent as ContinentName, subregion })
+              )}
+            </div>
+          </div>
+        )}
+
+        <button
+          id={`play-game-${game}`}
+          type="button"
+          onClick={() => handleStartGame(game, selectedScope)}
+          disabled={!canStart}
+          className={`mt-2 font-bold text-sm py-3 px-4 rounded-xl transition-all w-full ${
+            canStart
+              ? `${buttonClassName} cursor-pointer`
+              : 'bg-slate-200 text-slate-400 cursor-not-allowed'
+          }`}
+        >
+          {canStart ? `${startLabel}: ${getScopeLabel(selectedScope)}` : `Need more countries for ${getScopeLabel(selectedScope)}`}
+        </button>
+      </div>
+    );
+  };
+
+  const activeQuestionDifficulty = currentFlagQuestion?.difficulty || aiTrivia?.difficulty || 'warmup';
+  const activeQuestionIsReview = Boolean(currentFlagQuestion?.isReview || aiTrivia?.isReview);
+  const activeMemoryHook = currentFlagQuestion?.memoryHook || aiTrivia?.memoryHook;
+  const activeGameMemory = activeGame !== 'none' ? learningMemory.games[activeGame] : null;
 
   return (
     <div className="min-h-screen bg-slate-50 text-slate-800 flex flex-col font-sans selection:bg-blue-100 selection:text-blue-800">
@@ -463,6 +480,17 @@ export default function App() {
 
           {/* User Score Info Bar / Stats Drawer */}
           <div className="flex items-center gap-3 bg-slate-50 p-2 rounded-2xl border border-slate-100/80">
+            <div className={`hidden sm:flex items-center gap-1.5 px-3 py-1 rounded-lg border select-none ${
+              isOfflineReady
+                ? 'bg-emerald-50 border-emerald-100 text-emerald-700'
+                : 'bg-slate-100 border-slate-200 text-slate-500'
+            }`}>
+              {isOfflineReady ? <Wifi className="w-4 h-4" /> : <WifiOff className="w-4 h-4" />}
+              <span className="text-[10px] font-bold uppercase tracking-wider">
+                {isOfflineReady ? 'Offline Ready' : 'Caching'}
+              </span>
+            </div>
+
             <div className="flex items-center gap-1.5 px-3 py-1 bg-amber-500/10 border border-amber-500/15 text-amber-700 rounded-lg select-none">
               <Star className="w-4 h-4 fill-amber-500 text-amber-500" />
               <span className="font-extrabold text-sm">{stats.starsEarned}</span>
@@ -474,6 +502,34 @@ export default function App() {
                <span className="font-bold text-sm leading-none">{stats.completedBadges.length} / 7</span>
                <span className="text-[9px] font-bold text-purple-600 uppercase tracking-widest hidden md:inline ml-1">Badges</span>
              </div>
+
+            <input
+              ref={importInputRef}
+              type="file"
+              accept="application/json,.json"
+              className="hidden"
+              onChange={handleImportProgress}
+            />
+
+            <button
+              id="export-progress-button"
+              onClick={handleExportProgress}
+              className="text-xs font-semibold text-slate-500 hover:text-blue-700 hover:bg-blue-50 px-2 py-1 rounded-lg transition-all inline-flex items-center gap-1"
+              title="Export learning memory backup"
+            >
+              <Download className="w-3.5 h-3.5" />
+              <span className="hidden md:inline">Export</span>
+            </button>
+
+            <button
+              id="import-progress-button"
+              onClick={() => importInputRef.current?.click()}
+              className="text-xs font-semibold text-slate-500 hover:text-blue-700 hover:bg-blue-50 px-2 py-1 rounded-lg transition-all inline-flex items-center gap-1"
+              title="Import learning memory backup"
+            >
+              <Upload className="w-3.5 h-3.5" />
+              <span className="hidden md:inline">Import</span>
+            </button>
 
             <button 
               id="reset-overall-button"
@@ -703,14 +759,7 @@ export default function App() {
                         <span className="font-bold text-slate-800">{stats.flagQuizHighScore} points</span>
                       </div>
                     </div>
-                    
-                    <button
-                      id="play-game-flag"
-                      onClick={() => handleStartGame('flag')}
-                      className="mt-6 bg-slate-900 hover:bg-slate-800 text-white font-bold text-sm py-3 px-4 rounded-xl transition-all cursor-pointer w-full"
-                    >
-                      Begin Flags Match
-                    </button>
+                    {renderQuizScopePicker('flag', 'Begin Flags Match', 'bg-slate-900 hover:bg-slate-800 text-white')}
                   </div>
 
                   {/* GAME 2: CAPITAL QUEST */}
@@ -731,14 +780,7 @@ export default function App() {
                         <span className="font-bold text-slate-800">{stats.capitalQuizHighScore} points</span>
                       </div>
                     </div>
-
-                    <button
-                      id="play-game-capital"
-                      onClick={() => handleStartGame('capital')}
-                      className="mt-6 bg-slate-900 hover:bg-slate-800 text-white font-bold text-sm py-3 px-4 rounded-xl transition-all cursor-pointer w-full"
-                    >
-                      Begin Capitals Challenge
-                    </button>
+                    {renderQuizScopePicker('capital', 'Begin Capitals Challenge', 'bg-slate-900 hover:bg-slate-800 text-white')}
                   </div>
 
                   {/* GAME 3: CURRENCY SORT */}
@@ -759,14 +801,7 @@ export default function App() {
                         <span className="font-bold text-slate-800">{stats.currencyHighScore} points</span>
                       </div>
                     </div>
-
-                    <button
-                      id="play-game-currency"
-                      onClick={() => handleStartGame('currency')}
-                      className="mt-6 bg-slate-900 hover:bg-slate-800 text-white font-bold text-sm py-3 px-4 rounded-xl transition-all cursor-pointer w-full"
-                    >
-                      Begin Currency Quiz
-                    </button>
+                    {renderQuizScopePicker('currency', 'Begin Currency Quiz', 'bg-slate-900 hover:bg-slate-800 text-white')}
                   </div>
 
                   {/* GAME 4: CONTINENT SORT */}
@@ -787,21 +822,14 @@ export default function App() {
                         <span className="font-bold text-slate-800">{stats.continentHighScore} points</span>
                       </div>
                     </div>
-
-                    <button
-                      id="play-game-continent"
-                      onClick={() => handleStartGame('continent')}
-                      className="mt-6 bg-slate-900 hover:bg-slate-800 text-white font-bold text-sm py-3 px-4 rounded-xl transition-all cursor-pointer w-full"
-                    >
-                      Begin Continent Sorter
-                    </button>
+                    {renderQuizScopePicker('continent', 'Begin Region Sorter', 'bg-slate-900 hover:bg-slate-800 text-white')}
                   </div>
 
-                  {/* GAME 5: GEMINI AI FACT OR FICTION */}
+                  {/* GAME 5: OFFLINE FACT OR FICTION */}
                   <div className="bg-white rounded-2xl border border-purple-200 p-5 flex flex-col justify-between hover:border-purple-300 hover:shadow-md transition-all duration-350 bg-gradient-to-br from-white to-purple-50/20 relative overflow-hidden">
                     {/* Sparkly overlay tag */}
                     <span className="absolute top-3 right-3 text-[10px] font-extrabold text-purple-700 bg-purple-100 border border-purple-200 px-2 py-0.5 rounded-full uppercase tracking-wider">
-                      GenAI Mode
+                      Offline
                     </span>
 
                     <div>
@@ -809,10 +837,10 @@ export default function App() {
                         🤖
                       </div>
                       <h3 className="font-extrabold text-slate-800 text-lg mt-4 flex items-center gap-2">
-                        Gemini Fact or Fiction
+                        Fact or Fiction
                       </h3>
                       <p className="text-xs text-slate-500 mt-1 leading-relaxed">
-                        Play true-or-false trivia. Gemini generates obscure, tricky cultural claims—can you sniff out the correct answers?
+                        Play true-or-false trivia from local country data. Spot the believable lie before it sticks in memory.
                       </p>
 
                       <div className="mt-4 pt-3 border-t border-purple-100/60 flex justify-between items-center text-xs">
@@ -820,14 +848,7 @@ export default function App() {
                         <span className="font-bold text-purple-700">{stats.aiTriviaHighScore} points</span>
                       </div>
                     </div>
-
-                    <button
-                      id="play-game-ai-trivia"
-                      onClick={() => handleStartGame('ai-trivia')}
-                      className="mt-6 bg-purple-700 hover:bg-purple-600 text-white font-bold text-sm py-3 px-4 rounded-xl transition-all cursor-pointer w-full shadow-xs shadow-purple-600/10"
-                    >
-                      Connect AI Trivia Master
-                    </button>
+                    {renderQuizScopePicker('ai-trivia', 'Begin Fact or Fiction', 'bg-purple-700 hover:bg-purple-600 text-white shadow-xs shadow-purple-600/10')}
                   </div>
 
                   {/* GAME 6: INDIA CONNECTION STRATEGIC TRIVIA */}
@@ -852,14 +873,7 @@ export default function App() {
                         <span className="font-bold text-orange-700">{stats.indiaRelationHighScore || 0} points</span>
                       </div>
                     </div>
-
-                    <button
-                      id="play-game-india-trivia"
-                      onClick={() => handleStartGame('india-trivia')}
-                      className="mt-6 bg-orange-600 hover:bg-orange-500 text-white font-bold text-sm py-3 px-4 rounded-xl transition-all cursor-pointer w-full shadow-xs shadow-orange-600/10"
-                    >
-                      Begin India Trivia Study
-                    </button>
+                    {renderQuizScopePicker('india-trivia', 'Begin India Trivia Study', 'bg-orange-600 hover:bg-orange-500 text-white shadow-xs shadow-orange-600/10')}
                   </div>
 
                 </div>
@@ -884,9 +898,12 @@ export default function App() {
                       {activeGame === 'capital' && '🏛️ Capitals Explorer'}
                       {activeGame === 'currency' && '💵 Currency Quiz'}
                       {activeGame === 'continent' && '🌍 Continent Sorter'}
-                      {activeGame === 'ai-trivia' && '✨ Gemini True/False'}
+                      {activeGame === 'ai-trivia' && 'Fact or Fiction'}
                       {activeGame === 'india-trivia' && '🇮🇳 Bilateral India Relations'}
                     </h3>
+                    <p className="mt-1 text-[11px] font-bold text-slate-500 normal-case tracking-normal">
+                      {getScopeTrail(activeQuizScope)}
+                    </p>
                   </div>
 
                   {/* Lifeline stats shelf */}
@@ -913,6 +930,35 @@ export default function App() {
                     </div>
                   </div>
 
+                </div>
+
+                <div className="mb-6 space-y-3">
+                  <div className="h-2 rounded-full bg-slate-100 overflow-hidden">
+                    <div
+                      className="h-full bg-blue-600 transition-all duration-300"
+                      style={{ width: `${Math.min(100, (questionsAnswered % 10) * 10)}%` }}
+                    />
+                  </div>
+                  <div className="flex flex-wrap items-center gap-2 text-[10px] font-black uppercase tracking-wider">
+                    <span className="bg-blue-50 text-blue-700 border border-blue-100 px-2.5 py-1 rounded-full">
+                      {activeQuestionDifficulty} difficulty
+                    </span>
+                    {activeQuestionIsReview && (
+                      <span className="bg-amber-50 text-amber-700 border border-amber-100 px-2.5 py-1 rounded-full">
+                        Review comeback
+                      </span>
+                    )}
+                    {activeGameMemory && (
+                      <>
+                        <span className="bg-emerald-50 text-emerald-700 border border-emerald-100 px-2.5 py-1 rounded-full">
+                          Streak {activeGameMemory.streak}
+                        </span>
+                        <span className="bg-slate-50 text-slate-600 border border-slate-100 px-2.5 py-1 rounded-full">
+                          Review queue {activeGameMemory.reviewQueue.length}
+                        </span>
+                      </>
+                    )}
+                  </div>
                 </div>
 
                 {/* GAME STATE CHECK: DEAD / LIVES RUN OUT */}
@@ -963,13 +1009,10 @@ export default function App() {
                         {/* If Flag quiz, display large centering flag */}
                         {activeGame === 'flag' && currentFlagQuestion.flagCode && (
                           <div className="flex justify-center py-2 select-none">
-                            <div className="relative aspect-[3/2] w-48 rounded-2xl overflow-hidden border border-slate-200/60 shadow-md bg-slate-50">
-                              <img
-                                src={`https://flagcdn.com/w160/${currentFlagQuestion.flagCode}.png`}
-                                alt="Secret Country Flag"
-                                referrerPolicy="no-referrer"
-                                className="w-full h-full object-cover"
-                              />
+                            <div className="relative aspect-[3/2] w-48 rounded-2xl overflow-hidden border border-slate-200/60 shadow-md bg-white flex items-center justify-center">
+                              <span className="text-7xl leading-none" role="img" aria-label="Secret country flag">
+                                {countryCodeToFlagEmoji(currentFlagQuestion.flagCode)}
+                              </span>
                             </div>
                           </div>
                         )}
@@ -1043,6 +1086,11 @@ export default function App() {
                                 <p className="text-xs sm:text-sm text-slate-700 font-medium">
                                   {currentFlagQuestion.explanation || `The correct answer is ${currentFlagQuestion.correctAnswer}.`}
                                 </p>
+                                {activeMemoryHook && (
+                                  <p className="mt-2 text-[11px] text-slate-500 font-bold">
+                                    Memory hook: {activeMemoryHook}
+                                  </p>
+                                )}
                               </div>
                             </div>
                             
@@ -1059,7 +1107,7 @@ export default function App() {
                       </div>
                     )}
 
-                    {/* GEMINI AI TRIVIA QUESTION INTERFACE VIEW */}
+                    {/* OFFLINE FACT OR FICTION QUESTION INTERFACE VIEW */}
                     {activeGame === 'ai-trivia' && (
                       <div className="space-y-6">
                         
@@ -1068,7 +1116,7 @@ export default function App() {
                           <div className="text-center py-10 space-y-3">
                             <div className="w-12 h-12 border-4 border-purple-200 border-t-purple-700 rounded-full animate-spin mx-auto" />
                             <p className="text-xs text-purple-700 font-bold uppercase tracking-widest animate-pulse">
-                              Consulting Gemini Trivia Master...
+                              Preparing local fact check...
                             </p>
                             <p className="text-xs text-slate-400 font-medium italic">
                               Analyzing flags, extreme geographic rules, and rare recipes...
@@ -1154,6 +1202,11 @@ export default function App() {
                                     <p className="text-xs sm:text-sm text-slate-700 leading-relaxed font-medium">
                                       {aiTriviaExplanation}
                                     </p>
+                                    {activeMemoryHook && (
+                                      <p className="mt-2 text-[11px] text-slate-500 font-bold">
+                                        Memory hook: {activeMemoryHook}
+                                      </p>
+                                    )}
                                   </div>
                                 </div>
 

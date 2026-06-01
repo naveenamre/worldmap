@@ -10,6 +10,7 @@ import {
   type StudyMapData,
   type TouristDestination,
 } from '../services/staticCountryTools';
+import { countryCodeToFlagEmoji } from '../services/flagEmoji';
 import { 
   X, Info, Coins, Languages, Landmark, 
   MapPin, Users, Lightbulb, Compass, Send, Sparkles, AlertCircle, Map, Layers,
@@ -346,14 +347,10 @@ export const CountryDetailModal: React.FC<CountryDetailModalProps> = ({ country,
           
           <div className="flex flex-col md:flex-row items-start md:items-center gap-6 z-10 w-full relative">
             {/* Flag Frame */}
-            <div className="relative rounded-xl overflow-hidden border-2 border-white/90 shadow-xl w-24 md:w-32 aspect-[3/2] bg-slate-800 shrink-0 select-none">
-              <img
-                src={`https://flagcdn.com/w160/${country.code}.png`}
-                alt={`${country.name} Flag`}
-                referrerPolicy="no-referrer"
-                loading="eager"
-                className="w-full h-full object-cover"
-              />
+            <div className="relative rounded-xl overflow-hidden border-2 border-white/90 shadow-xl w-24 md:w-32 aspect-[3/2] bg-white shrink-0 select-none flex items-center justify-center">
+              <span className="text-5xl md:text-6xl leading-none" role="img" aria-label={`${country.name} flag`}>
+                {countryCodeToFlagEmoji(country.code)}
+              </span>
             </div>
 
             {/* Title Block */}
@@ -692,7 +689,7 @@ export const CountryDetailModal: React.FC<CountryDetailModalProps> = ({ country,
                       </div>
                       <div>
                         <h4 className="font-extrabold text-slate-800 text-base">Formulating Isolated Study Blueprint...</h4>
-                        <p className="text-xs text-slate-400 mt-1 max-w-xs mx-auto">Gemini is tracing correct boundary points, capital coordinates, and rivers of {country.name} directly on the grid.</p>
+                        <p className="text-xs text-slate-400 mt-1 max-w-xs mx-auto">The offline study map is tracing boundary points, capital coordinates, and rivers of {country.name} directly on the grid.</p>
                       </div>
                     </div>
                   ) : studyMapError || !studyMapData ? (

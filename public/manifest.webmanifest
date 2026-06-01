@@ -1,0 +1,18 @@
+{
+  "name": "World Country Learner",
+  "short_name": "World Learner",
+  "description": "Offline-first personal geography trainer for flags, capitals, currencies, maps, and country facts.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f8fafc",
+  "theme_color": "#2563eb",
+  "icons": [
+    {
+      "src": "./pwa-icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

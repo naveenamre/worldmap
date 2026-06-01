@@ -1,6 +1,6 @@
 # World Maps
 
-Interactive React/Vite geography study app for flags, capitals, currencies, maps, and country facts.
+Offline-first React/Vite geography study app for flags, capitals, currencies, maps, country facts, and personal quiz memory.
 
 ## Run Locally
 
@@ -20,6 +20,18 @@ npm run build
 ```
 
 The static site is created in `dist/`. The Vite base path is set to `./`, so the build works from GitHub Pages project URLs, custom subfolders, and simple static hosting.
+
+## Offline Personal Mode
+
+The GitHub Pages build is designed to run without a backend:
+
+- Quiz generation runs entirely in the browser.
+- Personal learning memory is saved in browser storage.
+- Progress can be exported and imported as a JSON backup.
+- A service worker caches the app shell and runtime assets after the first visit.
+- Large map files are cached as they are opened, so the first page load stays reasonable.
+
+For the best offline result, open the deployed site once while online, visit the study areas/maps you care about, then the app can keep working from the browser cache.
 
 ## GitHub Pages
 
@@ -124,13 +136,13 @@ npm run maps:build -- --skip-commons
 
 ## Optional Backend Mode
 
-GitHub Pages cannot run an Express server or hide API keys. The app now includes browser-side fallback content, so the core experience still works as a static site.
+GitHub Pages cannot run an Express server or hide API keys. The main app does not require a backend; the Express server is only for local experiments.
 
-For local backend testing with Gemini:
+For local backend testing:
 
 ```bash
 cp .env.example .env.local
 npm run dev:server
 ```
 
-Set `GEMINI_API_KEY` in `.env.local` if you want live Gemini responses.
+Set `GEMINI_API_KEY` in `.env.local` if you want to experiment with the optional server routes locally.

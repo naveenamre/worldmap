@@ -1,6 +1,7 @@
 import React from 'react';
 import { Country } from '../data/countries';
 import { Landmark, MapPin } from 'lucide-react';
+import { countryCodeToFlagEmoji } from '../services/flagEmoji';
 
 interface CountryCardProps {
   country: Country;
@@ -26,19 +27,10 @@ export const CountryCard: React.FC<CountryCardProps> = ({ country, onClick }) =>
       className="group bg-white rounded-2xl border border-slate-100 hover:border-slate-200 shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer overflow-hidden flex flex-col h-full transform hover:-translate-y-1"
     >
       {/* Flag Header */}
-      <div className="relative w-full aspect-[3/2] bg-slate-50 overflow-hidden border-b border-slate-100">
-        <img
-          src={`https://flagcdn.com/w160/${country.code}.png`}
-          alt={`${country.name} Flag`}
-          referrerPolicy="no-referrer"
-          loading="lazy"
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-          onError={(e) => {
-            // Fallback content in case of offline or errors
-            const target = e.target as HTMLImageElement;
-            target.style.display = 'none';
-          }}
-        />
+      <div className="relative w-full aspect-[3/2] bg-slate-50 overflow-hidden border-b border-slate-100 flex items-center justify-center">
+        <span className="text-7xl leading-none transition-transform duration-500 group-hover:scale-105" role="img" aria-label={`${country.name} flag`}>
+          {countryCodeToFlagEmoji(country.code)}
+        </span>
         {/* Continent Badge */}
         <span className={`absolute top-3 right-3 px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wider rounded-full border ${badge.bg} ${badge.text} ${badge.border} backdrop-blur-[2px] shadow-xs`}>
           {country.continent}

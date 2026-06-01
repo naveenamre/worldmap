@@ -130,7 +130,7 @@ export function getStaticGuideAnswer(country: Country, query: string): string {
     return `**Culture notes for ${country.name}**\n\n${facts.map((fact) => `- ${fact}`).join('\n')}\n\n**Study angle:** connect these facts with **${country.landmark}**, the capital **${country.capital}**, and the language(s) **${languageList}**. That creates a stronger mental map than memorizing one fact alone.${indiaNote}`;
   }
 
-  return `**${country.name} at a glance**\n\n- **Capital:** ${country.capital}\n- **Continent:** ${country.continent}\n- **Currency:** ${country.currency.name} (${country.currency.code})\n- **Language(s):** ${languageList}\n- **Landmark:** ${country.landmark}\n\n${facts.map((fact) => `- ${fact}`).join('\n')}\n\nThis is the static-site answer. Connect a backend API later if you want live Gemini responses on a server host.`;
+  return `**${country.name} at a glance**\n\n- **Capital:** ${country.capital}\n- **Continent:** ${country.continent}\n- **Currency:** ${country.currency.name} (${country.currency.code})\n- **Language(s):** ${languageList}\n- **Landmark:** ${country.landmark}\n\n${facts.map((fact) => `- ${fact}`).join('\n')}\n\nThis is the offline static-site answer generated from local app data.`;
 }
 
 export function getStaticTriviaQuestion(country: Country, allCountries: Country[]): AICountryTrivia {
