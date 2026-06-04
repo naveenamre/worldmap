@@ -335,10 +335,10 @@ export const CountryDetailModal: React.FC<CountryDetailModalProps> = ({ country,
   ];
 
   return (
-    <div className="fixed inset-0 z-50 overflow-y-auto flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs transition-opacity duration-300">
+    <div className="fixed inset-0 z-50 overflow-y-auto flex items-center justify-center p-0 sm:p-4 bg-slate-900/60 backdrop-blur-xs transition-opacity duration-300">
       <div 
         id="country-detail-panel" 
-        className="relative bg-white w-full max-w-3xl rounded-3xl shadow-2xl flex flex-col max-h-[90vh] overflow-hidden border border-slate-100"
+        className="relative bg-white w-full max-w-3xl rounded-none sm:rounded-2xl shadow-2xl flex flex-col h-[100dvh] sm:h-auto sm:max-h-[90vh] overflow-hidden border border-slate-100"
       >
         {/* Header Ribbon / Image background banner */}
         <div className="relative bg-slate-950 text-white p-6 md:p-8 shrink-0 flex items-end">

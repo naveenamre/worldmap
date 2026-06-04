@@ -1,6 +1,9 @@
-const CACHE_VERSION = 'world-learner-v1';
+const CACHE_VERSION = 'world-learner-v2';
 const APP_SHELL_CACHE = `${CACHE_VERSION}-shell`;
-const RUNTIME_CACHE = `${CACHE_VERSION}-runtime`;
+const ASSET_CACHE = `${CACHE_VERSION}-assets`;
+const MAP_CACHE = `${CACHE_VERSION}-maps`;
+const MAX_ASSET_ENTRIES = 80;
+const MAX_MAP_ENTRIES = 50;
 
 const APP_SHELL = [
   './',
@@ -10,11 +13,7 @@ const APP_SHELL = [
 ];
 
 self.addEventListener('install', (event) => {
-  event.waitUntil(
-    caches.open(APP_SHELL_CACHE)
-      .then((cache) => cache.addAll(APP_SHELL))
-      .then(() => self.skipWaiting())
-  );
+  event.waitUntil(caches.open(APP_SHELL_CACHE).then((cache) => cache.addAll(APP_SHELL)));
 });
 
 self.addEventListener('activate', (event) => {
@@ -22,37 +21,44 @@ self.addEventListener('activate', (event) => {
     caches.keys()
       .then((keys) => Promise.all(
         keys
-          .filter((key) => ![APP_SHELL_CACHE, RUNTIME_CACHE].includes(key))
+          .filter((key) => ![APP_SHELL_CACHE, ASSET_CACHE, MAP_CACHE].includes(key))
           .map((key) => caches.delete(key))
       ))
       .then(() => self.clients.claim())
   );
 });
 
-async function cacheFirst(request) {
+async function trimCache(cacheName, maximumEntries) {
+  const cache = await caches.open(cacheName);
+  const keys = await cache.keys();
+  const overflow = keys.length - maximumEntries;
+  if (overflow > 0) {
+    await Promise.all(keys.slice(0, overflow).map((key) => cache.delete(key)));
+  }
+}
+
+async function putIfValid(cacheName, request, response, maximumEntries) {
+  if (!response || !response.ok || response.type === 'opaque') return;
+  const cache = await caches.open(cacheName);
+  await cache.put(request, response.clone());
+  await trimCache(cacheName, maximumEntries);
+}
+
+async function cacheFirst(request, cacheName, maximumEntries) {
   const cached = await caches.match(request);
   if (cached) return cached;
-
   const response = await fetch(request);
-  if (response.ok) {
-    const cache = await caches.open(RUNTIME_CACHE);
-    cache.put(request, response.clone());
-  }
+  await putIfValid(cacheName, request, response, maximumEntries);
   return response;
 }
 
 async function networkFirst(request) {
   try {
     const response = await fetch(request);
-    if (response.ok) {
-      const cache = await caches.open(RUNTIME_CACHE);
-      cache.put(request, response.clone());
-    }
+    await putIfValid(APP_SHELL_CACHE, request, response, 12);
     return response;
   } catch (error) {
-    const cached = await caches.match(request);
-    if (cached) return cached;
-    return caches.match('./index.html');
+    return (await caches.match(request)) || (await caches.match('./index.html'));
   }
 }
 
@@ -68,17 +74,22 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
+  if (url.pathname.includes('/maps/')) {
+    event.respondWith(cacheFirst(request, MAP_CACHE, MAX_MAP_ENTRIES));
+    return;
+  }
+
   if (
     url.pathname.includes('/assets/') ||
-    url.pathname.includes('/maps/') ||
-    url.pathname.endsWith('.svg') ||
-    url.pathname.endsWith('.png') ||
-    url.pathname.endsWith('.jpg') ||
-    url.pathname.endsWith('.jpeg') ||
-    url.pathname.endsWith('.webp') ||
-    url.pathname.endsWith('.css') ||
-    url.pathname.endsWith('.js')
+    /\.(?:svg|png|jpg|jpeg|webp|css|js)$/.test(url.pathname)
   ) {
-    event.respondWith(cacheFirst(request));
+    event.respondWith(cacheFirst(request, ASSET_CACHE, MAX_ASSET_ENTRIES));
+  }
+});
+
+self.addEventListener('message', (event) => {
+  if (event.data?.type === 'SKIP_WAITING') self.skipWaiting();
+  if (event.data?.type === 'CLEAR_MAP_CACHE') {
+    event.waitUntil(caches.delete(MAP_CACHE));
   }
 });

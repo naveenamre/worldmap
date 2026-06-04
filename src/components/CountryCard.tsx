@@ -17,14 +17,15 @@ export const ContinentColors: Record<string, { bg: string; text: string; border:
   "Oceania": { bg: "bg-cyan-50", text: "text-cyan-700", border: "border-cyan-200" },
 };
 
-export const CountryCard: React.FC<CountryCardProps> = ({ country, onClick }) => {
+export const CountryCard: React.FC<CountryCardProps> = React.memo(({ country, onClick }) => {
   const badge = ContinentColors[country.continent] || { bg: "bg-gray-50", text: "text-gray-700", border: "border-gray-200" };
 
   return (
-    <div
+    <button
+      type="button"
       id={`country-card-${country.code}`}
       onClick={onClick}
-      className="group bg-white rounded-2xl border border-slate-100 hover:border-slate-200 shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer overflow-hidden flex flex-col h-full transform hover:-translate-y-1"
+      className="country-card-auto group bg-white rounded-2xl border border-slate-100 hover:border-slate-200 shadow-sm hover:shadow-md transition-all duration-300 cursor-pointer overflow-hidden flex flex-col h-full text-left transform hover:-translate-y-1 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
     >
       {/* Flag Header */}
       <div className="relative w-full aspect-[3/2] bg-slate-50 overflow-hidden border-b border-slate-100 flex items-center justify-center">
@@ -72,6 +73,8 @@ export const CountryCard: React.FC<CountryCardProps> = ({ country, onClick }) =>
           </div>
         </div>
       </div>
-    </div>
+    </button>
   );
-};
+});
+
+CountryCard.displayName = 'CountryCard';

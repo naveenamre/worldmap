@@ -54,6 +54,9 @@ export interface StudyMapData {
 const API_TIMEOUT_MS = 6000;
 
 export async function postJson<T>(endpoint: string, payload: unknown): Promise<T> {
+  if (typeof window !== 'undefined') {
+    throw new Error(`Offline mode uses local study data instead of ${endpoint}.`);
+  }
   if (isKnownStaticHost()) {
     throw new Error('Static host has no backend API.');
   }

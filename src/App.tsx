@@ -1,21 +1,35 @@
-import { useState, useEffect, useRef, type ChangeEvent } from 'react';
+import {
+  lazy,
+  Suspense,
+  useDeferredValue,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+  type ChangeEvent,
+} from 'react';
 import { countries, Country } from './data/countries';
 import { CountryCard } from './components/CountryCard';
-import { CountryDetailModal } from './components/CountryDetailModal';
 import { GameStats, ActiveSection, ActiveGame, TriviaQuestion, AICountryTrivia, LearningMemory, QuizGameId } from './types';
 import {
   canStartQuizScope,
   createEmptyLearningMemory,
-  exportLearningMemory,
   generateFactFictionQuestion,
   generateMultipleChoiceQuestion,
   getLearningMemorySummary,
   getQuizCountryPool,
-  loadLearningMemory,
-  parseLearningMemoryBackup,
   recordQuizAnswer,
-  saveLearningMemory,
 } from './services/quizEngine';
+import {
+  clearClientState,
+  exportClientState,
+  flushClientStateSave,
+  loadClientState,
+  parseClientStateBackup,
+  scheduleClientStateSave,
+  type AppPreferences,
+  type ClientState,
+} from './services/clientStorage';
 import { countryCodeToFlagEmoji } from './services/flagEmoji';
 import {
   CONTINENTS,
@@ -32,6 +46,9 @@ import {
 } from 'lucide-react';
 
 type QuizGame = QuizGameId;
+const CountryDetailModal = lazy(() => import('./components/CountryDetailModal').then((module) => ({
+  default: module.CountryDetailModal,
+})));
 
 const createDefaultQuizScopes = (): Record<QuizGame, QuizScope> => ({
   flag: WORLD_SCOPE,
@@ -42,6 +59,17 @@ const createDefaultQuizScopes = (): Record<QuizGame, QuizScope> => ({
   'india-trivia': WORLD_SCOPE,
 });
 
+const DEFAULT_STATS: GameStats = {
+  flagQuizHighScore: 0,
+  capitalQuizHighScore: 0,
+  currencyHighScore: 0,
+  continentHighScore: 0,
+  aiTriviaHighScore: 0,
+  indiaRelationHighScore: 0,
+  starsEarned: 0,
+  completedBadges: [],
+};
+
 export default function App() {
   const [activeSection, setActiveSection] = useState<ActiveSection>('learn');
   const [selectedContinent, setSelectedContinent] = useState<string>('All');
@@ -50,16 +78,7 @@ export default function App() {
   const [selectedCountry, setSelectedCountry] = useState<Country | null>(null);
 
   // Stats setup with LocalStorage persistence
-  const [stats, setStats] = useState<GameStats>({
-    flagQuizHighScore: 0,
-    capitalQuizHighScore: 0,
-    currencyHighScore: 0,
-    continentHighScore: 0,
-    aiTriviaHighScore: 0,
-    indiaRelationHighScore: 0,
-    starsEarned: 0,
-    completedBadges: [],
-  });
+  const [stats, setStats] = useState<GameStats>(DEFAULT_STATS);
 
   // Active Game State
   const [activeGame, setActiveGame] = useState<ActiveGame>('none');
@@ -74,7 +93,15 @@ export default function App() {
   const [activeQuizScope, setActiveQuizScope] = useState<QuizScope>(WORLD_SCOPE);
   const [learningMemory, setLearningMemory] = useState<LearningMemory>(() => createEmptyLearningMemory());
   const [isOfflineReady, setIsOfflineReady] = useState<boolean>(false);
+  const [isOnline, setIsOnline] = useState<boolean>(() => navigator.onLine);
+  const [saveStatus, setSaveStatus] = useState<'loading' | 'saving' | 'saved' | 'error'>('loading');
+  const [notice, setNotice] = useState<string | null>(null);
+  const [updateRegistration, setUpdateRegistration] = useState<ServiceWorkerRegistration | null>(null);
+  const [confirmResetOpen, setConfirmResetOpen] = useState(false);
+  const [expandedScopeGame, setExpandedScopeGame] = useState<QuizGame | null>(null);
+  const [visibleCountryCount, setVisibleCountryCount] = useState(48);
   const importInputRef = useRef<HTMLInputElement | null>(null);
+  const hasLoadedClientState = useRef(false);
 
   // Offline Fact or Fiction state
   const [aiTrivia, setAiTrivia] = useState<AICountryTrivia | null>(null);
@@ -92,20 +119,20 @@ export default function App() {
     { id: 'diplomat', name: 'Diplomacy Expert', desc: 'Score 6+ in India Connection Quiz', icon: Award, color: 'text-orange-500 bg-orange-50 border-orange-100' },
   ];
 
-  // Load stats from LocalStorage on mount
   useEffect(() => {
-    const saved = localStorage.getItem('world_learner_stats_v3');
-    if (saved) {
-      try {
-        setStats(JSON.parse(saved));
-      } catch (e) {
-        console.error("Failed to parse local storage stats", e);
-      }
-    }
-  }, []);
-
-  useEffect(() => {
-    setLearningMemory(loadLearningMemory());
+    const defaultPreferences: AppPreferences = {
+      selectedContinent: 'All',
+      indiaRelationsOnly: false,
+      quizScopes: createDefaultQuizScopes(),
+    };
+    const saved = loadClientState(DEFAULT_STATS, defaultPreferences);
+    setStats(saved.stats);
+    setLearningMemory(saved.learningMemory);
+    setSelectedContinent(saved.preferences.selectedContinent);
+    setIndiaRelationsOnly(saved.preferences.indiaRelationsOnly);
+    setQuizScopes(saved.preferences.quizScopes);
+    setSaveStatus('saved');
+    hasLoadedClientState.current = true;
 
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.ready
@@ -113,19 +140,48 @@ export default function App() {
         .catch(() => setIsOfflineReady(false));
     }
 
-    const updateOnlineStatus = () => setIsOfflineReady((current) => current || !navigator.onLine);
+    const updateOnlineStatus = () => {
+      setIsOnline(navigator.onLine);
+      setIsOfflineReady((current) => current || !navigator.onLine);
+    };
     window.addEventListener('online', updateOnlineStatus);
     window.addEventListener('offline', updateOnlineStatus);
+    const handleUpdateReady = (event: Event) => {
+      const registration = (event as CustomEvent<ServiceWorkerRegistration>).detail;
+      setUpdateRegistration(registration);
+    };
+    window.addEventListener('world-learner-update-ready', handleUpdateReady);
+    window.addEventListener('beforeunload', flushClientStateSave);
 
     return () => {
       window.removeEventListener('online', updateOnlineStatus);
       window.removeEventListener('offline', updateOnlineStatus);
+      window.removeEventListener('world-learner-update-ready', handleUpdateReady);
+      window.removeEventListener('beforeunload', flushClientStateSave);
+      flushClientStateSave();
     };
   }, []);
 
-  // Update badges when stats change
-  const saveStats = (newStats: GameStats) => {
-    // Determine unlocked badges dynamically
+  useEffect(() => {
+    if (!hasLoadedClientState.current) return;
+
+    setSaveStatus('saving');
+    const state: ClientState = {
+      version: 1,
+      stats,
+      learningMemory,
+      preferences: { selectedContinent, indiaRelationsOnly, quizScopes },
+      updatedAt: Date.now(),
+    };
+
+    scheduleClientStateSave(
+      state,
+      () => setSaveStatus('saved'),
+      () => setSaveStatus('error')
+    );
+  }, [stats, learningMemory, selectedContinent, indiaRelationsOnly, quizScopes]);
+
+  const withUnlockedBadges = (newStats: GameStats): GameStats => {
     const unlocked: string[] = [];
     if (newStats.starsEarned >= 15) unlocked.push('first-stars');
     if (newStats.flagQuizHighScore >= 8) unlocked.push('flag-master');
@@ -135,14 +191,16 @@ export default function App() {
     if (newStats.aiTriviaHighScore >= 5) unlocked.push('ai-scholar');
     if ((newStats.indiaRelationHighScore || 0) >= 6) unlocked.push('diplomat');
 
-    const updated = { ...newStats, completedBadges: unlocked };
-    setStats(updated);
-    localStorage.setItem('world_learner_stats_v3', JSON.stringify(updated));
+    return { ...newStats, completedBadges: unlocked };
+  };
+
+  // Update badges when stats change
+  const saveStats = (newStats: GameStats) => {
+    setStats(withUnlockedBadges(newStats));
   };
 
   const addStars = (amount: number) => {
-    const updated = { ...stats, starsEarned: stats.starsEarned + amount };
-    saveStats(updated);
+    setStats((current) => withUnlockedBadges({ ...current, starsEarned: current.starsEarned + amount }));
   };
 
   const getCountryPool = (game: ActiveGame, scope: QuizScope = activeQuizScope): Country[] => {
@@ -215,7 +273,6 @@ export default function App() {
     if (activeGame !== 'none' && currentFlagQuestion) {
       const updatedMemory = recordQuizAnswer(learningMemory, activeGame, currentFlagQuestion, isCorrect);
       setLearningMemory(updatedMemory);
-      saveLearningMemory(updatedMemory);
     }
 
     setQuestionsAnswered(prev => prev + 1);
@@ -239,7 +296,6 @@ export default function App() {
 
     const updatedMemory = recordQuizAnswer(learningMemory, 'ai-trivia', aiTrivia, isCorrect);
     setLearningMemory(updatedMemory);
-    saveLearningMemory(updatedMemory);
 
     setQuestionsAnswered(prev => prev + 1);
   };
@@ -295,27 +351,25 @@ export default function App() {
 
   // Reset all game data progress safely
   const resetAllProgress = () => {
-    if (window.confirm("Are you sure you want to reset all high scores, stars, and badges? This action is irreversible.")) {
-      const cleared = {
-        flagQuizHighScore: 0,
-        capitalQuizHighScore: 0,
-        currencyHighScore: 0,
-        continentHighScore: 0,
-        aiTriviaHighScore: 0,
-        indiaRelationHighScore: 0,
-        starsEarned: 0,
-        completedBadges: [],
-      };
-      setStats(cleared);
-      localStorage.setItem('world_learner_stats_v3', JSON.stringify(cleared));
-      const clearedMemory = createEmptyLearningMemory();
-      setLearningMemory(clearedMemory);
-      saveLearningMemory(clearedMemory);
-    }
+    clearClientState();
+    setStats(DEFAULT_STATS);
+    setLearningMemory(createEmptyLearningMemory());
+    setQuizScopes(createDefaultQuizScopes());
+    setSelectedContinent('All');
+    setIndiaRelationsOnly(false);
+    setConfirmResetOpen(false);
+    setNotice('Progress reset. Your next answer will start a fresh learning profile.');
   };
 
   const handleExportProgress = () => {
-    const blob = new Blob([exportLearningMemory(learningMemory)], { type: 'application/json' });
+    const state: ClientState = {
+      version: 1,
+      stats,
+      learningMemory,
+      preferences: { selectedContinent, indiaRelationsOnly, quizScopes },
+      updatedAt: Date.now(),
+    };
+    const blob = new Blob([exportClientState(state)], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
@@ -324,38 +378,59 @@ export default function App() {
     URL.revokeObjectURL(url);
   };
 
+  const clearOfflineMaps = () => {
+    navigator.serviceWorker.controller?.postMessage({ type: 'CLEAR_MAP_CACHE' });
+    setNotice('Previously opened offline maps were cleared. Maps will cache again when opened.');
+  };
+
   const handleImportProgress = async (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (!file) return;
 
     try {
-      const importedMemory = parseLearningMemoryBackup(await file.text());
-      setLearningMemory(importedMemory);
-      saveLearningMemory(importedMemory);
+      const imported = parseClientStateBackup(await file.text(), DEFAULT_STATS, {
+        selectedContinent: 'All',
+        indiaRelationsOnly: false,
+        quizScopes: createDefaultQuizScopes(),
+      });
+      setStats(imported.stats);
+      setLearningMemory(imported.learningMemory);
+      setSelectedContinent(imported.preferences.selectedContinent);
+      setIndiaRelationsOnly(imported.preferences.indiaRelationsOnly);
+      setQuizScopes(imported.preferences.quizScopes);
+      setNotice('Progress imported successfully.');
     } catch (error) {
       console.error('Could not import progress backup', error);
-      window.alert('Could not import that progress file. Please choose a valid World Learner backup JSON.');
+      setNotice('Import failed. Choose a valid World Learner progress JSON file.');
     } finally {
       event.target.value = '';
     }
   };
 
-  // Filtering countries list
-  const filteredCountries = countries.filter(c => {
-    const matchContinent = selectedContinent === 'All' || c.continent === selectedContinent;
-    const matchIndiaRelations = !indiaRelationsOnly || (c.indiaRelation !== undefined);
-    const cleanQuery = searchQuery.trim().toLowerCase();
-    const matchSearch = cleanQuery === '' ||
-      c.name.toLowerCase().includes(cleanQuery) ||
-      c.capital.toLowerCase().includes(cleanQuery) ||
-      c.landmark.toLowerCase().includes(cleanQuery) ||
-      c.continent.toLowerCase().includes(cleanQuery) ||
-      c.languages.some(lang => lang.toLowerCase().includes(cleanQuery)) ||
-      c.currency.code.toLowerCase().includes(cleanQuery) ||
-      c.currency.name.toLowerCase().includes(cleanQuery);
+  const deferredSearchQuery = useDeferredValue(searchQuery);
+  const filteredCountries = useMemo(() => {
+    const cleanQuery = deferredSearchQuery.trim().toLowerCase();
 
-    return matchContinent && matchIndiaRelations && matchSearch;
-  });
+    return countries.filter((country) => {
+      const matchContinent = selectedContinent === 'All' || country.continent === selectedContinent;
+      const matchIndiaRelations = !indiaRelationsOnly || country.indiaRelation !== undefined;
+      const matchSearch = cleanQuery === '' ||
+        country.name.toLowerCase().includes(cleanQuery) ||
+        country.capital.toLowerCase().includes(cleanQuery) ||
+        country.landmark.toLowerCase().includes(cleanQuery) ||
+        country.continent.toLowerCase().includes(cleanQuery) ||
+        country.languages.some((language) => language.toLowerCase().includes(cleanQuery)) ||
+        country.currency.code.toLowerCase().includes(cleanQuery) ||
+        country.currency.name.toLowerCase().includes(cleanQuery);
+
+      return matchContinent && matchIndiaRelations && matchSearch;
+    });
+  }, [deferredSearchQuery, selectedContinent, indiaRelationsOnly]);
+  const visibleCountries = filteredCountries.slice(0, visibleCountryCount);
+
+  useEffect(() => {
+    setVisibleCountryCount(48);
+  }, [deferredSearchQuery, selectedContinent, indiaRelationsOnly]);
 
   const renderQuizScopePicker = (game: QuizGame, startLabel: string, buttonClassName: string) => {
     const selectedScope = quizScopes[game];
@@ -363,6 +438,7 @@ export default function App() {
     const selectedCount = getCountryPool(game, selectedScope).length;
     const canStart = canStartGameScope(game, selectedScope);
     const memorySummary = getLearningMemorySummary(learningMemory, countries, game, selectedScope);
+    const isExpanded = expandedScopeGame === game;
     const makeId = (label: string) => label.replace(/[^a-z0-9]+/gi, '-').toLowerCase();
 
     const renderScopeButton = (label: string, scope: QuizScope) => {
@@ -395,12 +471,22 @@ export default function App() {
     return (
       <div className="mt-5 pt-4 border-t border-slate-100 space-y-3">
         <div className="flex items-center justify-between gap-3">
-          <span className="text-[10px] uppercase tracking-wider font-black text-slate-400">
-            Choose Study Area
-          </span>
-          <span className="text-[10px] font-bold text-slate-500">
-            {selectedCount} countries
-          </span>
+          <div className="min-w-0">
+            <span className="text-[10px] uppercase tracking-wider font-black text-slate-400">
+              Study Area
+            </span>
+            <p className="text-xs font-bold text-slate-700 truncate">
+              {getScopeTrail(selectedScope)} · {selectedCount} countries
+            </p>
+          </div>
+          <button
+            type="button"
+            onClick={() => setExpandedScopeGame(isExpanded ? null : game)}
+            className="min-h-10 shrink-0 rounded-lg border border-slate-200 bg-white px-3 text-[11px] font-bold text-slate-600 hover:bg-slate-50 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+            aria-expanded={isExpanded}
+          >
+            {isExpanded ? 'Close' : 'Change'}
+          </button>
         </div>
 
         <div className="grid grid-cols-3 gap-2 text-center">
@@ -418,21 +504,25 @@ export default function App() {
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-2">
-          {renderScopeButton('World', WORLD_SCOPE)}
-          {CONTINENTS.map((continent) => renderScopeButton(continent, { level: 'continent', continent }))}
-        </div>
+        {isExpanded && (
+          <div className="space-y-3 rounded-xl border border-slate-100 bg-slate-50 p-3">
+            <div className="grid grid-cols-2 gap-2">
+              {renderScopeButton('World', WORLD_SCOPE)}
+              {CONTINENTS.map((continent) => renderScopeButton(continent, { level: 'continent', continent }))}
+            </div>
 
-        {focusedContinent && (
-          <div className="bg-slate-50 border border-slate-100 rounded-xl p-3 space-y-2">
-            <div className="text-[10px] uppercase tracking-wider font-black text-slate-400">
-              {focusedContinent} Subregions
-            </div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-              {getSubregionsForContinent(focusedContinent as ContinentName).map((subregion) =>
-                renderScopeButton(subregion, { level: 'subregion', continent: focusedContinent as ContinentName, subregion })
-              )}
-            </div>
+            {focusedContinent && (
+              <div className="space-y-2 border-t border-slate-200 pt-3">
+                <div className="text-[10px] uppercase tracking-wider font-black text-slate-400">
+                  {focusedContinent} Subregions
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                  {getSubregionsForContinent(focusedContinent as ContinentName).map((subregion) =>
+                    renderScopeButton(subregion, { level: 'subregion', continent: focusedContinent as ContinentName, subregion })
+                  )}
+                </div>
+              </div>
+            )}
           </div>
         )}
 
@@ -462,42 +552,42 @@ export default function App() {
     <div className="min-h-screen bg-slate-50 text-slate-800 flex flex-col font-sans selection:bg-blue-100 selection:text-blue-800">
       
       {/* Interactive Main Header */}
-      <header className="bg-white border-b border-slate-100 sticky top-0 z-40 shadow-xs">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <header className="bg-white border-b border-slate-100 sm:sticky sm:top-0 z-40 shadow-xs">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 sm:py-4 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
           
           {/* Logo Brand / Human Labels */}
-          <div className="flex items-center gap-3">
-            <div className="w-11 h-11 rounded-2xl bg-blue-600 text-white flex items-center justify-center font-bold text-xl shadow-md cursor-pointer hover:bg-blue-500 transition-colors">
+          <div className="flex items-center gap-3 min-w-0">
+            <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-blue-600 text-white flex items-center justify-center font-bold text-xl shadow-md shrink-0">
               <Globe className="w-6 h-6 animate-spin-slow" />
             </div>
-            <div>
-              <h1 className="font-extrabold text-xl md:text-2xl tracking-tight text-slate-900 flex items-center gap-1.5">
+            <div className="min-w-0">
+              <h1 className="font-extrabold text-lg sm:text-xl md:text-2xl tracking-tight text-slate-900 truncate">
                 World Country Learner
               </h1>
-              <p className="text-xs text-slate-500 font-medium">Capitals, Flags, Currencies & Fun Facts Study Suite</p>
+              <p className="text-[11px] sm:text-xs text-slate-500 font-medium truncate">Offline geography study suite</p>
             </div>
           </div>
 
           {/* User Score Info Bar / Stats Drawer */}
-          <div className="flex items-center gap-3 bg-slate-50 p-2 rounded-2xl border border-slate-100/80">
-            <div className={`hidden sm:flex items-center gap-1.5 px-3 py-1 rounded-lg border select-none ${
-              isOfflineReady
+          <div className="flex items-center gap-1.5 sm:gap-2 overflow-x-auto bg-slate-50 p-1.5 sm:p-2 rounded-xl border border-slate-100/80">
+            <div className={`flex min-h-9 items-center gap-1.5 px-2.5 rounded-lg border select-none shrink-0 ${
+              isOfflineReady || !isOnline
                 ? 'bg-emerald-50 border-emerald-100 text-emerald-700'
                 : 'bg-slate-100 border-slate-200 text-slate-500'
             }`}>
-              {isOfflineReady ? <Wifi className="w-4 h-4" /> : <WifiOff className="w-4 h-4" />}
+              {isOnline ? <Wifi className="w-4 h-4" /> : <WifiOff className="w-4 h-4" />}
               <span className="text-[10px] font-bold uppercase tracking-wider">
-                {isOfflineReady ? 'Offline Ready' : 'Caching'}
+                {!isOnline ? 'Offline' : isOfflineReady ? 'Ready' : 'Caching'}
               </span>
             </div>
 
-            <div className="flex items-center gap-1.5 px-3 py-1 bg-amber-500/10 border border-amber-500/15 text-amber-700 rounded-lg select-none">
+            <div className="flex min-h-9 items-center gap-1.5 px-2.5 bg-amber-500/10 border border-amber-500/15 text-amber-700 rounded-lg select-none shrink-0">
               <Star className="w-4 h-4 fill-amber-500 text-amber-500" />
               <span className="font-extrabold text-sm">{stats.starsEarned}</span>
               <span className="text-[10px] text-amber-600 font-semibold uppercase tracking-wider ml-0.5">Stars</span>
             </div>
 
-            <div className="flex items-center gap-1 px-3 py-1 bg-purple-50 border border-purple-100 text-purple-700 rounded-lg select-none">
+            <div className="hidden md:flex min-h-9 items-center gap-1 px-2.5 bg-purple-50 border border-purple-100 text-purple-700 rounded-lg select-none shrink-0">
                <Award className="w-4 h-4" />
                <span className="font-bold text-sm leading-none">{stats.completedBadges.length} / 7</span>
                <span className="text-[9px] font-bold text-purple-600 uppercase tracking-widest hidden md:inline ml-1">Badges</span>
@@ -514,7 +604,7 @@ export default function App() {
             <button
               id="export-progress-button"
               onClick={handleExportProgress}
-              className="text-xs font-semibold text-slate-500 hover:text-blue-700 hover:bg-blue-50 px-2 py-1 rounded-lg transition-all inline-flex items-center gap-1"
+              className="min-h-9 min-w-9 text-xs font-semibold text-slate-500 hover:text-blue-700 hover:bg-blue-50 px-2 rounded-lg transition-all inline-flex items-center justify-center gap-1 shrink-0 focus-visible:outline-2 focus-visible:outline-blue-600"
               title="Export learning memory backup"
             >
               <Download className="w-3.5 h-3.5" />
@@ -524,7 +614,7 @@ export default function App() {
             <button
               id="import-progress-button"
               onClick={() => importInputRef.current?.click()}
-              className="text-xs font-semibold text-slate-500 hover:text-blue-700 hover:bg-blue-50 px-2 py-1 rounded-lg transition-all inline-flex items-center gap-1"
+              className="min-h-9 min-w-9 text-xs font-semibold text-slate-500 hover:text-blue-700 hover:bg-blue-50 px-2 rounded-lg transition-all inline-flex items-center justify-center gap-1 shrink-0 focus-visible:outline-2 focus-visible:outline-blue-600"
               title="Import learning memory backup"
             >
               <Upload className="w-3.5 h-3.5" />
@@ -533,31 +623,35 @@ export default function App() {
 
             <button 
               id="reset-overall-button"
-              onClick={resetAllProgress} 
-              className="text-xs font-semibold text-slate-400 hover:text-rose-600 hover:bg-rose-50 px-2 py-1 rounded-lg transition-all"
+              onClick={() => setConfirmResetOpen(true)}
+              className="min-h-9 text-xs font-semibold text-slate-400 hover:text-rose-600 hover:bg-rose-50 px-2 rounded-lg transition-all shrink-0 focus-visible:outline-2 focus-visible:outline-rose-600"
               title="Reset high scores and badges reset"
             >
               Reset
             </button>
+
+            <span className="text-[10px] font-bold uppercase tracking-wider text-slate-400 px-1 shrink-0" role="status">
+              {saveStatus === 'saving' ? 'Saving...' : saveStatus === 'error' ? 'Save error' : 'Saved'}
+            </span>
           </div>
         </div>
       </header>
 
       {/* Hero Achievement Rack Banner (Persistent) */}
-      <section className="bg-slate-900 text-white py-6 px-4 shrink-0 text-center relative border-b border-slate-800">
+      <section className="bg-slate-900 text-white py-4 sm:py-6 px-4 shrink-0 text-center relative border-b border-slate-800">
         <div className="absolute inset-0 bg-linear-to-r from-blue-900/10 via-purple-950/20 to-slate-900 pointer-events-none" />
         <div className="max-w-4xl mx-auto relative z-10">
           <h2 className="text-xs uppercase tracking-widest font-black text-blue-400">🏆 Learning Milestone Track</h2>
           
           {/* Badge Display Row */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 mt-4">
+          <div className="flex sm:grid sm:grid-cols-3 lg:grid-cols-6 gap-3 mt-3 sm:mt-4 overflow-x-auto snap-x pb-1">
             {ALL_BADGES.map((b) => {
               const IconComp = b.icon;
               const isUnlocked = stats.completedBadges.includes(b.id);
               return (
                 <div 
                   key={b.id}
-                  className={`p-3 rounded-xl border flex flex-col items-center justify-center text-center transition-all shadow-xs group cursor-default relative ${
+                  className={`min-w-32 sm:min-w-0 snap-start p-3 rounded-xl border flex flex-col items-center justify-center text-center transition-all shadow-xs group cursor-default relative ${
                     isUnlocked 
                       ? 'bg-slate-800/80 border-slate-700 text-white' 
                       : 'bg-slate-850/40 border-slate-800/80 text-slate-500 opacity-60'
@@ -579,32 +673,32 @@ export default function App() {
       </section>
 
       {/* Main Secondary Tab Selectors */}
-      <nav className="bg-white border-b border-slate-100 flex justify-center sticky top-[77px] z-30 shadow-xs/60">
-        <div className="flex gap-4 p-2">
+      <nav className="bg-white border-b border-slate-100 flex justify-center sticky top-0 sm:top-[77px] z-30 shadow-xs/60">
+        <div className="grid grid-cols-2 gap-1.5 p-2 w-full max-w-xl">
           <button
             id="nav-tab-learn"
             onClick={() => { setActiveSection('learn'); handleExitGame(); }}
-            className={`flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-bold transition-all cursor-pointer ${
+            className={`min-h-11 flex items-center justify-center gap-2 px-3 sm:px-6 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 ${
               activeSection === 'learn' && activeGame === 'none'
                 ? 'bg-blue-600 text-white shadow-md shadow-blue-500/20'
                 : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
             }`}
           >
             <Compass className="w-4.5 h-4.5" />
-            Study & Explore Countries
+            <span className="truncate">Study Countries</span>
           </button>
 
           <button
             id="nav-tab-games"
             onClick={() => setActiveSection('games')}
-            className={`flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-bold transition-all cursor-pointer ${
+            className={`min-h-11 flex items-center justify-center gap-2 px-3 sm:px-6 py-2.5 rounded-xl text-xs sm:text-sm font-bold transition-all cursor-pointer focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600 ${
               activeSection === 'games' || activeGame !== 'none'
                 ? 'bg-blue-600 text-white shadow-md shadow-blue-500/20'
                 : 'text-slate-600 hover:text-slate-900 hover:bg-slate-50'
             }`}
           >
             <Trophy className="w-4.5 h-4.5" />
-            Practice Quiz Suite
+            <span className="truncate">Practice Quizzes</span>
           </button>
         </div>
       </nav>
@@ -617,7 +711,7 @@ export default function App() {
           <div className="space-y-6">
             
             {/* Filter Pill and Search Panel */}
-            <div className="bg-white p-5 rounded-3xl border border-slate-100 shadow-xs space-y-4">
+            <div className="bg-white p-4 sm:p-5 rounded-2xl border border-slate-100 shadow-xs space-y-4">
               <div className="flex flex-col md:flex-row gap-4 items-center justify-between">
                 
                 {/* Search Text Bar */}
@@ -707,8 +801,8 @@ export default function App() {
             )}
 
             {/* Country Cards Responsive Grid layout */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-              {filteredCountries.map((c) => (
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+              {visibleCountries.map((c) => (
                 <CountryCard
                   key={c.code}
                   country={c}
@@ -716,6 +810,18 @@ export default function App() {
                 />
               ))}
             </div>
+
+            {visibleCountries.length < filteredCountries.length && (
+              <div className="flex justify-center">
+                <button
+                  type="button"
+                  onClick={() => setVisibleCountryCount((count) => count + 48)}
+                  className="min-h-11 rounded-xl border border-slate-200 bg-white px-6 text-sm font-bold text-slate-700 hover:border-blue-300 hover:text-blue-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+                >
+                  Show more countries ({filteredCountries.length - visibleCountries.length} remaining)
+                </button>
+              </div>
+            )}
 
           </div>
         )}
@@ -883,10 +989,10 @@ export default function App() {
 
             {/* ================= ACTIVE LIVE GAME INTERFACE SCREEN ================= */}
             {activeGame !== 'none' && (
-              <div className="max-w-xl mx-auto bg-white border border-slate-150 rounded-3xl p-6 sm:p-8 shadow-xl relative overflow-hidden animate-fadeIn duration-250">
+              <div className="max-w-2xl mx-auto bg-white border border-slate-150 rounded-2xl p-4 sm:p-8 shadow-xl relative overflow-hidden animate-fadeIn duration-250">
                 
                 {/* Game header: Lives counters & Current high scores */}
-                <div className="flex justify-between items-center border-b border-slate-100 pb-4 mb-6">
+                <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-slate-100 pb-4 mb-6">
                   
                   {/* Game Label with back trigger */}
                   <div>
@@ -907,7 +1013,7 @@ export default function App() {
                   </div>
 
                   {/* Lifeline stats shelf */}
-                  <div className="flex items-center gap-4">
+                  <div className="flex items-center justify-between sm:justify-end gap-4 w-full sm:w-auto">
                     
                     {/* Score ticker */}
                     <div className="text-right">
@@ -973,6 +1079,22 @@ export default function App() {
                       <p className="text-slate-500 text-sm mt-1 max-w-sm mx-auto">
                         You ran out of lives! Excellent effort study partner, you racked up a fine score.
                       </p>
+                      {activeGameMemory && (
+                        <div className="mt-4 grid grid-cols-3 gap-2 text-center">
+                          <div className="rounded-lg bg-emerald-50 border border-emerald-100 p-2">
+                            <p className="text-base font-black text-emerald-700">{activeGameMemory.bestStreak}</p>
+                            <p className="text-[9px] uppercase font-bold text-emerald-600">Best streak</p>
+                          </div>
+                          <div className="rounded-lg bg-amber-50 border border-amber-100 p-2">
+                            <p className="text-base font-black text-amber-700">{activeGameMemory.reviewQueue.length}</p>
+                            <p className="text-[9px] uppercase font-bold text-amber-600">To review</p>
+                          </div>
+                          <div className="rounded-lg bg-blue-50 border border-blue-100 p-2">
+                            <p className="text-base font-black text-blue-700">{questionsAnswered}</p>
+                            <p className="text-[9px] uppercase font-bold text-blue-600">Answered</p>
+                          </div>
+                        </div>
+                      )}
                     </div>
 
                     {/* High score report */}
@@ -1248,10 +1370,80 @@ export default function App() {
 
       {/* ================= MODAL DRAWER FOR FULL INDIVIDUAL COUNTRY DETAILS & TRAVEL GUIDE ================= */}
       {selectedCountry && (
-        <CountryDetailModal
-          country={selectedCountry}
-          onClose={() => setSelectedCountry(null)}
-        />
+        <Suspense fallback={
+          <div className="fixed inset-0 z-50 bg-slate-900/60 flex items-center justify-center p-4">
+            <div className="rounded-xl bg-white px-5 py-4 text-sm font-bold text-slate-700 shadow-xl">
+              Loading country study tools...
+            </div>
+          </div>
+        }>
+          <CountryDetailModal
+            country={selectedCountry}
+            onClose={() => setSelectedCountry(null)}
+          />
+        </Suspense>
+      )}
+
+      {updateRegistration && (
+        <div className="fixed bottom-4 left-4 right-4 sm:left-auto sm:max-w-sm z-[60] rounded-xl border border-emerald-200 bg-white p-4 shadow-xl">
+          <p className="text-sm font-black text-slate-900">A lighter app update is ready.</p>
+          <p className="mt-1 text-xs text-slate-600">Reload once to use the newest offline files.</p>
+          <div className="mt-3 flex gap-2">
+            <button
+              type="button"
+              onClick={() => updateRegistration.waiting?.postMessage({ type: 'SKIP_WAITING' })}
+              className="min-h-10 rounded-lg bg-emerald-600 px-4 text-xs font-bold text-white hover:bg-emerald-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-emerald-600"
+            >
+              Update now
+            </button>
+            <button
+              type="button"
+              onClick={() => setUpdateRegistration(null)}
+              className="min-h-10 rounded-lg border border-slate-200 px-4 text-xs font-bold text-slate-600 hover:bg-slate-50 focus-visible:outline-2 focus-visible:outline-blue-600"
+            >
+              Later
+            </button>
+          </div>
+        </div>
+      )}
+
+      {notice && (
+        <div className="fixed bottom-4 left-4 right-4 sm:left-auto sm:max-w-sm z-[60] rounded-xl border border-blue-200 bg-white p-4 shadow-xl flex items-start justify-between gap-3" role="status">
+          <p className="text-sm font-semibold text-slate-700">{notice}</p>
+          <button
+            type="button"
+            onClick={() => setNotice(null)}
+            className="min-h-10 min-w-10 rounded-lg text-slate-500 hover:bg-slate-100 focus-visible:outline-2 focus-visible:outline-blue-600"
+            aria-label="Dismiss message"
+          >
+            <X className="w-4 h-4 mx-auto" />
+          </button>
+        </div>
+      )}
+
+      {confirmResetOpen && (
+        <div className="fixed inset-0 z-[70] bg-slate-900/60 p-4 flex items-center justify-center" role="presentation">
+          <div className="w-full max-w-sm rounded-2xl bg-white p-5 shadow-2xl" role="dialog" aria-modal="true" aria-labelledby="reset-dialog-title">
+            <h2 id="reset-dialog-title" className="text-lg font-black text-slate-900">Reset all progress?</h2>
+            <p className="mt-2 text-sm text-slate-600">This clears scores, mastery, review queues, streaks, and saved preferences on this browser.</p>
+            <div className="mt-5 grid grid-cols-2 gap-2">
+              <button
+                type="button"
+                onClick={() => setConfirmResetOpen(false)}
+                className="min-h-11 rounded-xl border border-slate-200 bg-white text-sm font-bold text-slate-700 hover:bg-slate-50 focus-visible:outline-2 focus-visible:outline-blue-600"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                onClick={resetAllProgress}
+                className="min-h-11 rounded-xl bg-rose-600 text-sm font-bold text-white hover:bg-rose-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rose-600"
+              >
+                Reset progress
+              </button>
+            </div>
+          </div>
+        </div>
       )}
 
       {/* Humble Footer with structural attributes */}

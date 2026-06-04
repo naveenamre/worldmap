@@ -11,8 +11,25 @@ createRoot(document.getElementById('root')!).render(
 
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('./sw.js').catch((error) => {
-      console.warn('Offline service worker registration failed:', error);
-    });
+    navigator.serviceWorker.register('./sw.js')
+      .then((registration) => {
+        if (registration.waiting && navigator.serviceWorker.controller) {
+          window.dispatchEvent(new CustomEvent('world-learner-update-ready', { detail: registration }));
+        }
+
+        registration.addEventListener('updatefound', () => {
+          const worker = registration.installing;
+          worker?.addEventListener('statechange', () => {
+            if (worker.state === 'installed' && navigator.serviceWorker.controller) {
+              window.dispatchEvent(new CustomEvent('world-learner-update-ready', { detail: registration }));
+            }
+          });
+        });
+      })
+      .catch((error) => {
+        console.warn('Offline service worker registration failed:', error);
+      });
+
+    navigator.serviceWorker.addEventListener('controllerchange', () => window.location.reload());
   });
 }

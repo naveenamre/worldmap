@@ -1,1 +1,23 @@
 @import "tailwindcss";
+
+.country-card-auto {
+  content-visibility: auto;
+  contain-intrinsic-size: 320px 420px;
+}
+
+button,
+[role="button"],
+input {
+  -webkit-tap-highlight-color: transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.001ms !important;
+  }
+}

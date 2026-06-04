@@ -20,11 +20,10 @@ import {
   type QuizScope,
 } from '../data/quizRegions';
 
-export const LEARNING_MEMORY_KEY = 'world_learner_memory_v1';
-
 const QUIZ_GAMES: QuizGameId[] = ['flag', 'capital', 'currency', 'continent', 'ai-trivia', 'india-trivia'];
 const RECENT_LIMIT = 8;
 const REVIEW_INTERVAL = 3;
+const poolCache = new WeakMap<Country[], Map<string, Country[]>>();
 
 const emptyGameMemory = (): QuizGameMemory => ({
   recentCountryCodes: [],
@@ -72,23 +71,6 @@ export function normalizeLearningMemory(input: unknown): LearningMemory {
   };
 }
 
-export function loadLearningMemory(): LearningMemory {
-  if (typeof window === 'undefined') return createEmptyLearningMemory();
-
-  try {
-    const saved = window.localStorage.getItem(LEARNING_MEMORY_KEY);
-    return saved ? normalizeLearningMemory(JSON.parse(saved)) : createEmptyLearningMemory();
-  } catch (error) {
-    console.warn('Could not load learning memory:', error);
-    return createEmptyLearningMemory();
-  }
-}
-
-export function saveLearningMemory(memory: LearningMemory) {
-  if (typeof window === 'undefined') return;
-  window.localStorage.setItem(LEARNING_MEMORY_KEY, JSON.stringify({ ...memory, updatedAt: Date.now() }));
-}
-
 export function exportLearningMemory(memory: LearningMemory): string {
   return JSON.stringify({ exportedAt: new Date().toISOString(), memory: normalizeLearningMemory(memory) }, null, 2);
 }
@@ -107,10 +89,18 @@ const uniqueOptions = (correctAnswer: string, candidates: string[], size = 4): s
 };
 
 function getPool(allCountries: Country[], game: QuizGameId, scope: QuizScope): Country[] {
+  const cache = poolCache.get(allCountries) || new Map<string, Country[]>();
+  if (!poolCache.has(allCountries)) poolCache.set(allCountries, cache);
+  const cacheKey = `${game}:${getScopeTrail(scope)}`;
+  const cached = cache.get(cacheKey);
+  if (cached) return cached;
+
   const predicate = game === 'india-trivia'
     ? (country: Country) => country.indiaRelation !== undefined
     : () => true;
-  return getScopedCountries(allCountries, scope, predicate);
+  const pool = getScopedCountries(allCountries, scope, predicate);
+  cache.set(cacheKey, pool);
+  return pool;
 }
 
 export function getQuizCountryPool(allCountries: Country[], game: QuizGameId, scope: QuizScope): Country[] {
